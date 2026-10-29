@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>African &amp; World History | Empires, Slave Trades, Resistance</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Theme pre-init to avoid flash -->
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('africa_world_theme');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark-mode');
+                    document.body && document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo" aria-label="Africa and The World Home">
+                <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                <span>Africa<span class="logo-highlight">World</span></span>
+            </a>
+
+            <!-- Streamlined Navigation -->
+            <nav id="mainNav" aria-label="Main Navigation">
+
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-house" aria-hidden="true"></i>
+                    Home
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-circle-info" aria-hidden="true"></i>
+                    About
+                </a>
+
+                <a href="history.html" class="nav-link active">
+                    <i class="fas fa-landmark" aria-hidden="true"></i>
+                    History
+                </a>
+
+                <!-- "Other sources" Dropdown -->
+                <div class="nav-item-dropdown">
+                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" id="sourcesDropdownBtn">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                        <span>Other sources</span>
+                        <i class="fas fa-chevron-down dropdown-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sourcesDropdownBtn">
+                        <a href="literature.html">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Literature
+                        </a>
+                        <a href="videos.html">
+                            <i class="fas fa-video" aria-hidden="true"></i>
+                            Documentary Videos
+                        </a>
+                        <a href="compare.html">
+                            <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                            Compare
+                        </a>
+                        <a href="trip-planner.html">
+                            <i class="fas fa-route" aria-hidden="true"></i>
+                            Plan trip
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fas fa-images" aria-hidden="true"></i>
+                            Visual Gallery
+                        </a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="nav-link">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    Contact Us
+                </a>
+
+                <a href="contact.html#donate" class="donate-link">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    Donate
+                </a>
+
+            </nav>
+
+            <div class="header-actions">
+                <!-- User Profile / Auth Widget -->
+                <div class="user-profile-nav" id="userProfileNav"></div>
+
+                <button id="darkModeBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+
+                <button id="menuBtn" class="menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= SUBPAGE HERO WITH TOP IMAGE ================= -->
+    <section class="subpage-hero" style="background-image: url('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=80');">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                <span>History</span>
+            </div>
+            <h1>African History &amp; World Civilizations</h1>
+            <p>
+                From ancient kingdoms and trans-Saharan trading empires to the resistance against transatlantic slavery,
+                the fight against European colonialism, and modern independence movements.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- ================= ANCIENT KINGDOMS ================= -->
+    <section>
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-crown" aria-hidden="true"></i>
+                    ANTIQUITY &amp; MEDIEVAL ERAS
+                </span>
+                <h2>Sovereign Empires Before European Expansion</h2>
+                <p>
+                    Centuries before transatlantic slaving expeditions and the 1884 Berlin Conference,
+                    Africa was defined by sophisticated statecraft, architectural mastery, and global trade.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <span class="card-tag">Nile Valley</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-pyramid" aria-hidden="true"></i>
+                    </div>
+                    <h3>Kingdom of Kush (Nubia)</h3>
+                    <p>
+                        Flourishing for over a thousand years along the Middle Nile (Napata and Meroë), Kush built more pyramids
+                        than Egypt. In the 8th century BCE, the 25th Dynasty (the "Black Pharaohs") united both realms.
+                        Later, Queen Amanirenas successfully repelled Roman legions under Augustus Caesar.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Horn of Africa</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-monument" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Aksumite Empire</h3>
+                    <p>
+                        Described by 3rd-century Persian prophet Mani as one of the four great world powers alongside Rome, Persia,
+                        and China. Aksum was a major maritime hub controlling Red Sea trade, minting its own gold coins,
+                        and erecting colossal granite stelae.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">West Africa</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-coins" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Mali Empire &amp; Timbuktu</h3>
+                    <p>
+                        Founded by Sundiata Keita in the 13th century, Mali controlled the lucrative trans-Saharan gold-salt trade.
+                        Under Mansa Musa, the empire flourished intellectually; the legendary University of Sankore in Timbuktu
+                        housed hundreds of thousands of scholarly manuscripts in law, astronomy, and medicine.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">West African Forest</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Kingdom of Benin</h3>
+                    <p>
+                        The Edo Kingdom developed an urban civilization protected by the Walls of Benin—one of the largest earthwork
+                        defenses ever built. Benin artisans produced world-renowned bronze, brass, and ivory relief sculptures
+                        celebrating the Oba and the Queen Mother (Idia).
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Southern Africa</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-dungeon" aria-hidden="true"></i>
+                    </div>
+                    <h3>Great Zimbabwe</h3>
+                    <p>
+                        Between the 11th and 15th centuries, ancestral Shona architects built monumental dry-stone granite walls
+                        without mortar. Zimbabwe served as the political center of an extensive trade network that exchanged gold
+                        and ivory with Swahili merchants for Chinese celadon and Persian glassware.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Swahili Coast</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-sailboat" aria-hidden="true"></i>
+                    </div>
+                    <h3>Swahili Maritime City-States</h3>
+                    <p>
+                        Cosmopolitan coral-stone port cities like Kilwa Kisiwani, Mombasa, Zanzibar, and Lamu connected the African
+                        interior with Arabia, Persia, India, and China across the Indian Ocean monsoon trade winds.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= TIMELINE ================= -->
+    <section style="background: var(--surface-secondary);">
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-timeline" aria-hidden="true"></i>
+                    CHRONOLOGY
+                </span>
+                <h2>Historical Timeline Through the Centuries</h2>
+                <p>
+                    Follow the major epochs that transformed Africa and its interactions with the wider world.
+                </p>
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-landmark" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">c. 3000 BCE – 4th Century CE</span>
+                        <h3>Ancient Civilizations of the Nile &amp; Red Sea</h3>
+                        <p>
+                            Rise of ancient Egyptian kingdoms, the Kingdom of Kerma, the Kingdom of Kush at Napata and Meroë,
+                            and the Aksumite Empire. High-volume copper, gold, ivory, and frankincense trade linking the Mediterranean,
+                            Red Sea, and Indian Ocean basins.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Nubia</span>
+                            <span class="timeline-tag">Aksum</span>
+                            <span class="timeline-tag">Pyramids of Meroë</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-route" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">8th – 16th Century</span>
+                        <h3>Trans-Saharan Commerce &amp; Scholarly Golden Age</h3>
+                        <p>
+                            Ghana (Wagadou), Mali, and Songhai dominate West Africa. Islamic scholarship flourishes in centers
+                            like Timbuktu, Gao, and Jenne. Mansa Musa's 1324 pilgrimage places Mali's immense wealth on European
+                            cartography (e.g. the 1375 Catalan Atlas).
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Mali Empire</span>
+                            <span class="timeline-tag">Sankore University</span>
+                            <span class="timeline-tag">Gold Trade</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-ship" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">15th – 19th Century</span>
+                        <h3>The Transatlantic Slave Trade &amp; Diaspora Resistance</h3>
+                        <p>
+                            Over 12.5 million enslaved Africans were forced aboard slave vessels in the brutal Middle Passage.
+                            Simultaneously, relentless rebellions ignited: Maroon confederacies in Jamaica and Surinam,
+                            Quilombo dos Palmares in Brazil, Queen Nzinga's guerrilla campaigns in Angola, and the triumph
+                            of the Haitian Revolution (1791–1804).
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Middle Passage</span>
+                            <span class="timeline-tag">Haitian Revolution</span>
+                            <span class="timeline-tag">Queen Nzinga</span>
+                            <span class="timeline-tag">Maroon Societies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">1884 – 1914</span>
+                        <h3>The Berlin Conference &amp; The Scramble for Africa</h3>
+                        <p>
+                            Fourteen European powers partitioned Africa into artificial colonies without a single African representative.
+                            Widespread armed resistance arose: Emperor Menelik II and Empress Taytu Betul defeated the Italian army
+                            at the Battle of Adwa (1896); Queen Yaa Asantewaa led the Ashanti War of the Golden Stool (1900).
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Berlin 1884</span>
+                            <span class="timeline-tag">Battle of Adwa</span>
+                            <span class="timeline-tag">Yaa Asantewaa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-bullhorn" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Mid-20th Century – Present</span>
+                        <h3>Pan-Africanism, Liberation &amp; Reclaimed Sovereignty</h3>
+                        <p>
+                            Post-WWII anticolonial mobilization brought waves of independence starting with Ghana (1957) under Kwame Nkrumah.
+                            Liberation movements triumphed across Algeria, Kenya, Angola, Mozambique, Zimbabwe, and finally the dismantlement
+                            of apartheid in South Africa (1994) leading into today's 54 sovereign African states.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Pan-Africanism</span>
+                            <span class="timeline-tag">Nkrumah</span>
+                            <span class="timeline-tag">Anti-Apartheid</span>
+                            <span class="timeline-tag">African Union</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= SLAVE TRADE & RESISTANCE ================= -->
+    <section id="slavery">
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-link-slash" aria-hidden="true"></i>
+                    LABOR SYSTEMS &amp; ABOLITION
+                </span>
+                <h2>Understanding the Slave Trades &amp; Unyielding Resistance</h2>
+                <p>
+                    Analyzing the systemic violence of human commodification and the courageous resistance movements
+                    that redefined human freedom worldwide.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <span class="card-tag">Atlantic Triangle</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-ship" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Transatlantic Slave Trade</h3>
+                    <p>
+                        From the 16th to 19th centuries, European slaving nations transformed millions of African captives
+                        into chattel property. Fueled by plantation capitalism (sugar, tobacco, cotton), this trade displaced
+                        demographics, fractured coastal societies, and laid the foundations of modern racial capitalism.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Indian Ocean &amp; Sahara</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-water" aria-hidden="true"></i>
+                    </div>
+                    <h3>Indian Ocean &amp; Saharan Trades</h3>
+                    <p>
+                        Slave trading networks operating across the Sahara and the western Indian Ocean linked East Africa
+                        with Arabia, the Persian Gulf, and western India. While socially distinct from Atlantic plantation chattel slavery,
+                        it exacted profound human suffering and sparked major revolts such as the Zanj Rebellion in 9th-century Iraq.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">The Black Jacobins</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-fire" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Haitian Revolution (1791–1804)</h3>
+                    <p>
+                        The only successful slave revolt in world history to establish an independent nation free from both slavery
+                        and colonial rule. Led by Toussaint Louverture and Jean-Jacques Dessalines, Haitian freedom fighters defeated
+                        the British, Spanish, and Napoleon's French armies.
+                    </p>
+                </article>
+
+            </div>
+
+            <!-- Author Feature -->
+            <div class="author-feature">
+                <i class="fas fa-feather-pointed author-feature-icon" aria-hidden="true"></i>
+                <div class="author-feature-content">
+                    <span class="author-feature-label">PRIMARY SOURCE TESTIMONY</span>
+                    <h3>Olaudah Equiano (The Interesting Narrative, 1789)</h3>
+                    <p>
+                        "The stench of the hold while we were on the coast was so intolerably loathsome... The shrieks of the women,
+                        and the groans of the dying, rendered the whole a scene of horror almost inconceivable."
+                        Equiano's autobiography became an essential catalyst in the British and global abolition movements.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= UNIVERSAL AFRIMAX AI LAUNCHER & PANEL ================= -->
+    <button id="groqAiLauncher" class="groq-ai-launcher" type="button" aria-label="Open Afrimax AI Assistant">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
+        <span>Ask Afrimax AI</span>
+    </button>
+
+    <div id="groqAiPanel" class="groq-ai-panel" hidden aria-labelledby="groqHeading">
+        <div class="groq-ai-header">
+            <div class="groq-ai-header-info">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <div>
+                    <span class="groq-ai-badge">POWERED BY Afrimax AI</span>
+                    <h3 id="groqHeading">Africa &amp; The World Assistant</h3>
+                </div>
+            </div>
+            <button id="groqAiClose" class="groq-ai-close" type="button" aria-label="Close Afrimax AI Assistant">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div id="groqAiMessages" class="groq-ai-messages" role="log" aria-live="polite">
+            <div class="groq-msg groq-msg-bot">
+                Hello! I am Afrimax AI. Ask me about African kingdoms, historical dates, the Transatlantic slave trade, anticolonial resistance, or historical leaders!
+            </div>
+        </div>
+
+        <div class="groq-suggested-prompts">
+            <button type="button" class="groq-prompt-pill">Who was Queen Amanirenas?</button>
+            <button type="button" class="groq-prompt-pill">What happened at the Battle of Adwa?</button>
+        </div>
+
+        <form id="groqAiForm" class="groq-ai-form">
+            <input
+                id="groqAiInput"
+                type="text"
+                placeholder="Ask Afrimax AI any historical question..."
+                maxlength="1500"
+                autocomplete="off"
+                required
+            >
+            <button type="submit" aria-label="Send message to Afrimax AI">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
+
+
+    <!-- ================= BACK TO TOP BUTTON ================= -->
+    <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="Scroll to top of page" title="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                        <span>Africa &amp; The World</span>
+                    </a>
+                    <p>
+                        An educational digital initiative dedicated to exploring African history, slavery,
+                        resistance, philosophy, and literature through multi-perspective scholarship.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="X Twitter"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Main Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="history.html">History &amp; Empires</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#donate">Support Project</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Other Sources</h4>
+                    <ul class="footer-links">
+                        <li><a href="literature.html">Literature Archive</a></li>
+                        <li><a href="videos.html">Documentary Videos</a></li>
+                        <li><a href="compare.html">Compare Regions</a></li>
+                        <li><a href="trip-planner.html">AI Trip Planner</a></li>
+                        <li><a href="gallery.html">Visual Gallery</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>External Archives</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://whc.unesco.org" target="_blank" rel="noopener">UNESCO Heritage</a></li>
+                        <li><a href="https://www.si.edu" target="_blank" rel="noopener">Smithsonian NMAAHC</a></li>
+                        <li><a href="https://www.loc.gov" target="_blank" rel="noopener">Library of Congress</a></li>
+                        <li><a href="https://www.slavevoyages.org" target="_blank" rel="noopener">Slave Voyages DB</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Africa &amp; The World. Educational Open Access Initiative. All rights reserved.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Africa &amp; The World | History, Slavery, Culture &amp; Literature</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Theme pre-init to avoid flash -->
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('africa_world_theme');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark-mode');
+                    document.body && document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo" aria-label="Africa and The World Home">
+                <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                <span>Africa<span class="logo-highlight">World</span></span>
+            </a>
+
+            <!-- Streamlined Navigation -->
+            <nav id="mainNav" aria-label="Main Navigation">
+
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-house" aria-hidden="true"></i>
+                    Home
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-circle-info" aria-hidden="true"></i>
+                    About
+                </a>
+
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-landmark" aria-hidden="true"></i>
+                    History
+                </a>
+
+                <!-- "Other sources" Dropdown -->
+                <div class="nav-item-dropdown">
+                    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" id="sourcesDropdownBtn">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                        <span>Other sources</span>
+                        <i class="fas fa-chevron-down dropdown-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sourcesDropdownBtn">
+                        <a href="literature.html">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Literature
+                        </a>
+                        <a href="videos.html">
+                            <i class="fas fa-video" aria-hidden="true"></i>
+                            Documentary Videos
+                        </a>
+                        <a href="compare.html">
+                            <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                            Compare
+                        </a>
+                        <a href="trip-planner.html">
+                            <i class="fas fa-route" aria-hidden="true"></i>
+                            Plan trip
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fas fa-images" aria-hidden="true"></i>
+                            Visual Gallery
+                        </a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="nav-link">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    Contact Us
+                </a>
+
+                <a href="contact.html#donate" class="donate-link">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    Donate
+                </a>
+
+            </nav>
+
+            <div class="header-actions">
+                <!-- User Profile / Auth Widget -->
+                <div class="user-profile-nav" id="userProfileNav"></div>
+
+                <button id="darkModeBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+
+                <button id="menuBtn" class="menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= HERO WITH 4-IMAGE CAROUSEL & ROTATING GLOBE ================= -->
+    <section id="home" class="hero">
+
+        <!-- 4 Background Images Auto-swapping at infinity -->
+        <div class="hero-slider-bg" aria-hidden="true">
+            <!-- Slide 1: Pyramids of Meroë (Ancient Kush) -->
+            <div class="hero-slide active" style="background-image: url('/images/2.png');"></div>
+            <!-- Slide 2: Earthen Architecture of Mali & Timbuktu -->
+            <div class="hero-slide" style="background-image: url('/images/3.png');"></div>
+            <!-- Slide 3: Ethiopian Highlands & Lalibela Monoliths -->
+            <div class="hero-slide" style="background-image: url('/images/4.png');"></div>
+            <!-- Slide 4: Great Zimbabwe Ancient Granite Ruins -->
+            <div class="hero-slide" style="background-image: url('/images/7.png');"></div>
+        </div>
+
+        <!-- Atmospheric Dark Overlay -->
+        <div class="hero-slider-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-content">
+
+            <div class="hero-text">
+                <span class="hero-label">
+                    <i class="fas fa-earth-africa" aria-hidden="true"></i>
+                    CIVILIZATION • SCHOLARSHIP • RESISTANCE • LITERATURE
+                </span>
+
+                <!-- Auto-Write (Typewriter) Title -->
+                <h1>
+                    <span id="typewriterText">Africa &amp; The World</span><span class="typewriter-cursor">|</span>
+                </h1>
+
+                <h2>
+                    Understanding Global History Through
+                    <span>Multiple Perspectives</span>
+                </h2>
+
+                <p>
+                    Explore African societies before transatlantic contact, historical trade networks,
+                    the complexities of the slave trades, colonial resistance, literary masterpieces,
+                    and cross-continental historical developments.
+                </p>
+
+                <!-- Actions: Explore History & Quick Plan Trip Search Input -->
+                <div class="hero-actions-container">
+
+                    <div class="hero-top-action">
+                        <a href="history.html" class="btn primary-btn">
+                            <i class="fas fa-landmark" aria-hidden="true"></i>
+                            Explore History
+                        </a>
+                    </div>
+
+                    <!-- Quick Plan Trip with Search Input and Date -->
+                    <div class="hero-quick-planner">
+                        <div class="search-input-wrap">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <input
+                                type="text"
+                                id="heroDestinationInput"
+                                placeholder="Search African destination (e.g. Ghana, Egypt, Kenya)..."
+                                aria-label="Search African destination"
+                            >
+                        </div>
+                        <div class="date-input-wrap">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <input
+                                type="date"
+                                id="heroDateInput"
+                                aria-label="Select trip travel date"
+                                title="Select travel date"
+                            >
+                        </div>
+                        <button type="button" id="heroPlanTripBtn" class="quick-plan-btn">
+                            <i class="fas fa-route" aria-hidden="true"></i>
+                            Plan trip with date
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Slider Indicators -->
+                <div class="hero-slider-dots" aria-label="Image slider indicators">
+                    <button class="hero-dot active" data-index="0" aria-label="Slide 1"></button>
+                    <button class="hero-dot" data-index="1" aria-label="Slide 2"></button>
+                    <button class="hero-dot" data-index="2" aria-label="Slide 3"></button>
+                    <button class="hero-dot" data-index="3" aria-label="Slide 4"></button>
+                </div>
+            </div>
+
+            <!-- Auto-rotating globe icon -->
+            <div class="hero-icon" aria-hidden="true">
+                <i class="fas fa-earth-africa"></i>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= DUAL HORIZONTAL MOVING TICKERS ================= -->
+    <!-- Two rows moving horizontally in opposite directions: White buttons with black outline -->
+    <section class="ticker-section">
+        <div class="container">
+            <div class="ticker-section-header">
+                <h3><i class="fas fa-compass" aria-hidden="true"></i> Interactive Knowledge Stream</h3>
+            </div>
+        </div>
+
+        <div class="ticker-track-container">
+
+            <!-- ROW 1 (Moves Left): Chronology, Analysis, Comparative Engine, Texts & Voices, Media Archive, Travel & AI -->
+            <div class="ticker-row ticker-row-1" aria-label="Topics row 1">
+                <div class="ticker-track">
+                    <!-- Set 1 -->
+                    <a href="history.html" class="ticker-card">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        <span>Chronology</span>
+                    </a>
+                    <a href="history.html#slavery" class="ticker-card">
+                        <i class="fas fa-microscope" aria-hidden="true"></i>
+                        <span>Analysis</span>
+                    </a>
+                    <a href="compare.html" class="ticker-card">
+                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                        <span>Comparative Engine</span>
+                    </a>
+                    <a href="literature.html" class="ticker-card">
+                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                        <span>Texts &amp; Voices</span>
+                    </a>
+                    <a href="videos.html" class="ticker-card">
+                        <i class="fas fa-video" aria-hidden="true"></i>
+                        <span>Media Archive</span>
+                    </a>
+                    <a href="trip-planner.html" class="ticker-card">
+                        <i class="fas fa-robot" aria-hidden="true"></i>
+                        <span>Travel &amp; AI</span>
+                    </a>
+
+                    <!-- Set 2 (Seamless loop duplicate) -->
+                    <a href="history.html" class="ticker-card">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        <span>Chronology</span>
+                    </a>
+                    <a href="history.html#slavery" class="ticker-card">
+                        <i class="fas fa-microscope" aria-hidden="true"></i>
+                        <span>Analysis</span>
+                    </a>
+                    <a href="compare.html" class="ticker-card">
+                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                        <span>Comparative Engine</span>
+                    </a>
+                    <a href="literature.html" class="ticker-card">
+                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                        <span>Texts &amp; Voices</span>
+                    </a>
+                    <a href="videos.html" class="ticker-card">
+                        <i class="fas fa-video" aria-hidden="true"></i>
+                        <span>Media Archive</span>
+                    </a>
+                    <a href="trip-planner.html" class="ticker-card">
+                        <i class="fas fa-robot" aria-hidden="true"></i>
+                        <span>Travel &amp; AI</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ROW 2 (Moves Right): Ancient Civilizations, Slave Trade & Resistance, Griot Oral Epics, UNESCO Heritage, Documentaries, Visual Gallery -->
+            <div class="ticker-row ticker-row-2" aria-label="Topics row 2">
+                <div class="ticker-track">
+                    <!-- Set 1 -->
+                    <a href="history.html" class="ticker-card">
+                        <i class="fas fa-landmark" aria-hidden="true"></i>
+                        <span>Ancient Civilizations</span>
+                    </a>
+                    <a href="history.html#slavery" class="ticker-card">
+                        <i class="fas fa-link-slash" aria-hidden="true"></i>
+                        <span>Slave Trade &amp; Resistance</span>
+                    </a>
+                    <a href="literature.html" class="ticker-card">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                        <span>Griot Oral Epics</span>
+                    </a>
+                    <a href="trip-planner.html" class="ticker-card">
+                        <i class="fas fa-monument" aria-hidden="true"></i>
+                        <span>UNESCO Heritage</span>
+                    </a>
+                    <a href="videos.html" class="ticker-card">
+                        <i class="fas fa-film" aria-hidden="true"></i>
+                        <span>Historical Documentaries</span>
+                    </a>
+                    <a href="gallery.html" class="ticker-card">
+                        <i class="fas fa-images" aria-hidden="true"></i>
+                        <span>Curated Visual Gallery</span>
+                    </a>
+
+                    <!-- Set 2 (Seamless loop duplicate) -->
+                    <a href="history.html" class="ticker-card">
+                        <i class="fas fa-landmark" aria-hidden="true"></i>
+                        <span>Ancient Civilizations</span>
+                    </a>
+                    <a href="history.html#slavery" class="ticker-card">
+                        <i class="fas fa-link-slash" aria-hidden="true"></i>
+                        <span>Slave Trade &amp; Resistance</span>
+                    </a>
+                    <a href="literature.html" class="ticker-card">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                        <span>Griot Oral Epics</span>
+                    </a>
+                    <a href="trip-planner.html" class="ticker-card">
+                        <i class="fas fa-monument" aria-hidden="true"></i>
+                        <span>UNESCO Heritage</span>
+                    </a>
+                    <a href="videos.html" class="ticker-card">
+                        <i class="fas fa-film" aria-hidden="true"></i>
+                        <span>Historical Documentaries</span>
+                    </a>
+                    <a href="gallery.html" class="ticker-card">
+                        <i class="fas fa-images" aria-hidden="true"></i>
+                        <span>Curated Visual Gallery</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= EXPLORE PORTAL ================= -->
+    <section class="intro-section">
+        <div class="containers">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-compass" aria-hidden="true"></i>
+                    EDUCATIONAL PORTAL
+                </span>
+                <h2>Discover History from Decentered Perspectives</h2>
+                <p>
+                    History is dynamic and multi-layered. Explore our in-depth knowledge areas designed
+                    for students, educators, researchers, and global citizens.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <span class="card-tag">Chronology</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-landmark" aria-hidden="true"></i>
+                    </div>
+                    <h3>African Civilizations</h3>
+                    <p>
+                        Discover the kingdoms of Kush, Aksum, Mali, Songhai, Benin, Great Zimbabwe,
+                        and the Swahili coast long before European colonization.
+                    </p>
+                    <a href="history.html">
+                        Explore History
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Analysis</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-ship" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Slave Trades &amp; Resistance</h3>
+                    <p>
+                        Analyze the transatlantic, trans-Saharan, and Indian Ocean slave trades alongside
+                        enduring resistance from Queen Nzinga to the Haitian Revolution.
+                    </p>
+                    <a href="history.html#slavery">
+                        Study Resistance
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Comparative Engine</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                    </div>
+                    <h3>Compare World Regions</h3>
+                    <p>
+                        Examine societies, governance, scholarship, and economies across Africa, Europe,
+                        Asia, and the Americas side-by-side.
+                    </p>
+                    <a href="compare.html">
+                        Launch Comparison
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Texts &amp; Voices</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                    </div>
+                    <h3>Literature &amp; Oral Traditions</h3>
+                    <p>
+                        From the Epic of Sundiata to Frederick Douglass, Chinua Achebe, Toni Morrison,
+                        and Jamaica Kincaid: uncover literature that shapes memory.
+                    </p>
+                    <a href="literature.html">
+                        Browse Literature
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Media Archive</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-video" aria-hidden="true"></i>
+                    </div>
+                    <h3>Documentary Videos</h3>
+                    <p>
+                        Watch curated educational films and lectures detailing ancient scholarship,
+                        empires, anticolonial revolutions, and cultural legacies.
+                    </p>
+                    <a href="videos.html">
+                        Watch Documentaries
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="feature-card">
+                    <span class="card-tag">Travel &amp; AI</span>
+                    <div class="feature-icon">
+                        <i class="fas fa-route" aria-hidden="true"></i>
+                    </div>
+                    <h3>Heritage Trip Planner</h3>
+                    <p>
+                        Build customizable itineraries across 54 African countries with UNESCO heritage
+                        locations and consultation with our Gemini AI Travel Chatbot.
+                    </p>
+                    <a href="trip-planner.html">
+                        Plan Your Journey
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+            </div>
+
+            <!-- HISTORIOGRAPHICAL INSIGHT WITH IMAGE -->
+            <div class="insight-wrapper">
+                <div class="insight-text-content">
+                    <span class="card-tag" style="align-self: flex-start;">HISTORIOGRAPHICAL INSIGHT</span>
+                    <h3 style="font-size: 1.35rem; color: var(--text-heading); margin: 8px 0 12px;">
+                        "Until the lions have their own historians, the history of the hunt will always glorify the hunter."
+                    </h3>
+                    <p style="color: var(--muted); line-height: 1.65;">
+                        — Chinua Achebe, celebrated African novelist and essayist. Our educational platform reclaims multiple historical archives,
+                        centering African agency, indigenous scholarship, and resilience in the study of global civilization.
+                    </p>
+                </div>
+                <div class="insight-image-frame">
+                    <img
+                        src="/images/1.png"
+                        alt="African sculpture and historical artifact representing indigenous historiography"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= "AT A GLANCE" WITH BACKGROUND IMAGE ================= -->
+    <section class="glance-section" style="background-image: url('/images/11.avif');">
+        <div class="glance-overlay" aria-hidden="true"></div>
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-shapes" aria-hidden="true"></i>
+                    AT A GLANCE
+                </span>
+                <h2>Key Dimensions Covered</h2>
+                <p>
+                    Synthesizing archaeological discoveries, oral historical memory, colonial archives,
+                    and contemporary scholarship.
+                </p>
+            </div>
+
+            <div class="sources-grid">
+                <div class="glance-card">
+                    <i class="fas fa-crown" aria-hidden="true"></i>
+                    <h3 data-count="5000" data-suffix="+ Years">5,000+ Years</h3>
+                    <p>
+                        Of continuous civilizational records from the Nile Valley and Nubia through medieval
+                        trans-Saharan trading empires to modern sovereign states.
+                    </p>
+                </div>
+
+                <div class="glance-card">
+                    <i class="fas fa-book-journal-whills" aria-hidden="true"></i>
+                    <h3 data-count="300000" data-suffix="+ Manuscripts">300,000+ Manuscripts</h3>
+                    <p>
+                        Preserved in Timbuktu alone, chronicling astronomy, Islamic jurisprudence, medicine,
+                        mathematics, and diplomatic correspondence.
+                    </p>
+                </div>
+
+                <div class="glance-card">
+                    <i class="fas fa-people-arrows" aria-hidden="true"></i>
+                    <h3>Global Connections</h3>
+                    <p>
+                        Indian Ocean monsoon routes, trans-Saharan gold networks, and Atlantic maritime
+                        exchanges connecting Africa intimately to global history.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= VISUAL GALLERY SPOTLIGHT SECTION (REPLACED SYSTEM STATUS) ================= -->
+    <section class="gallery-spotlight-section" style="background-image: url('/images/11.avif');">
+        <div class="gallery-spotlight-overlay" aria-hidden="true"></div>
+        <div class="container">
+            <span class="section-label" style="color: var(--primary-light);">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                VISUAL HERITAGE ARCHIVE
+            </span>
+            <h2>Explore Ancient Architecture &amp; Artifacts</h2>
+            <p>
+                From the royal pyramids of Meroë and the rock-hewn monolithic churches of Lalibela to the dry-stone ramparts of Great Zimbabwe and royal Benin bronze castings, discover high-resolution historical treasures in our dedicated gallery.
+            </p>
+            <a href="gallery.html" class="gallery-spotlight-btn">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                View Gallery
+            </a>
+        </div>
+    </section>
+
+
+    <!-- ================= UNIVERSAL GROQ AI ASSISTANT LAUNCHER & PANEL ================= -->
+    <button id="groqAiLauncher" class="groq-ai-launcher" type="button" aria-label="Open Afrimax AI Assistant">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
+        <span>Ask Afrimax AI</span>
+    </button>
+
+    <div id="groqAiPanel" class="groq-ai-panel" hidden aria-labelledby="groqHeading">
+        <div class="groq-ai-header">
+            <div class="groq-ai-header-info">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <div>
+                    <span class="groq-ai-badge">POWERED BY Afrimax AI</span>
+                    <h3 id="groqHeading">Africa &amp; The World Assistant</h3>
+                </div>
+            </div>
+            <button id="groqAiClose" class="groq-ai-close" type="button" aria-label="Close Afrimax AI Assistant">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div id="groqAiMessages" class="groq-ai-messages" role="log" aria-live="polite">
+            <div class="groq-msg groq-msg-bot">
+                Hello! I am Afrimax AI, your Africa &amp; The World Assistant. Ask me anything about African civilizations, slavery &amp; resistance, literature, trip planning, or website resources!
+            </div>
+        </div>
+
+        <div class="groq-suggested-prompts">
+            <button type="button" class="groq-prompt-pill">Who was Mansa Musa?</button>
+            <button type="button" class="groq-prompt-pill">Explain the Haitian Revolution</button>
+            <button type="button" class="groq-prompt-pill">Book a cultural heritage expedition</button>
+        </div>
+
+        <form id="groqAiForm" class="groq-ai-form">
+            <input
+                id="groqAiInput"
+                type="text"
+                placeholder="Ask Afrimax AI anything about Africa & The World..."
+                maxlength="1500"
+                autocomplete="off"
+                required
+            >
+            <button type="submit" aria-label="Send message to Afrimax AI">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
+
+
+    <!-- ================= BACK TO TOP BUTTON ================= -->
+    <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="Scroll back to top" title="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                        <span>Africa &amp; The World</span>
+                    </a>
+                    <p>
+                        An educational digital initiative dedicated to exploring African history, slavery,
+                        resistance, philosophy, and literature through multi-perspective scholarship.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="X Twitter"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Main Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="history.html">History &amp; Empires</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#donate">Support Project</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Other Sources</h4>
+                    <ul class="footer-links">
+                        <li><a href="literature.html">Literature Archive</a></li>
+                        <li><a href="videos.html">Documentary Videos</a></li>
+                        <li><a href="compare.html">Compare Regions</a></li>
+                        <li><a href="trip-planner.html">AI Trip Planner</a></li>
+                        <li><a href="gallery.html">Visual Gallery</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>External Archives</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://whc.unesco.org" target="_blank" rel="noopener">UNESCO Heritage</a></li>
+                        <li><a href="https://www.si.edu" target="_blank" rel="noopener">Smithsonian NMAAHC</a></li>
+                        <li><a href="https://www.loc.gov" target="_blank" rel="noopener">Library of Congress</a></li>
+                        <li><a href="https://www.slavevoyages.org" target="_blank" rel="noopener">Slave Voyages DB</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Africa &amp; The World. Educational Open Access Initiative. All rights reserved.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="index.js"></script>
+    <script src="welcome-celebration.js"></script>
+</body>
+</html>

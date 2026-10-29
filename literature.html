@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Literature &amp; Oral Traditions | Africa &amp; The World</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Theme pre-init to avoid flash -->
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('africa_world_theme');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark-mode');
+                    document.body && document.body.classList.add('dark-mode');
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo" aria-label="Africa and The World Home">
+                <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                <span>Africa<span class="logo-highlight">World</span></span>
+            </a>
+
+            <!-- Streamlined Navigation -->
+            <nav id="mainNav" aria-label="Main Navigation">
+
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-house" aria-hidden="true"></i>
+                    Home
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-circle-info" aria-hidden="true"></i>
+                    About
+                </a>
+
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-landmark" aria-hidden="true"></i>
+                    History
+                </a>
+
+                <!-- "Other sources" Dropdown (Active) -->
+                <div class="nav-item-dropdown">
+                    <button class="dropdown-toggle active" aria-haspopup="true" aria-expanded="false" id="sourcesDropdownBtn">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                        <span>Other sources</span>
+                        <i class="fas fa-chevron-down dropdown-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sourcesDropdownBtn">
+                        <a href="literature.html" class="active">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Literature
+                        </a>
+                        <a href="videos.html">
+                            <i class="fas fa-video" aria-hidden="true"></i>
+                            Documentary Videos
+                        </a>
+                        <a href="compare.html">
+                            <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                            Compare
+                        </a>
+                        <a href="trip-planner.html">
+                            <i class="fas fa-route" aria-hidden="true"></i>
+                            Plan trip
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fas fa-images" aria-hidden="true"></i>
+                            Visual Gallery
+                        </a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="nav-link">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    Contact Us
+                </a>
+
+                <a href="contact.html#donate" class="donate-link">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    Donate
+                </a>
+
+            </nav>
+
+            <div class="header-actions">
+                <!-- User Profile / Auth Widget -->
+                <div class="user-profile-nav" id="userProfileNav"></div>
+
+                <button id="darkModeBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+
+                <button id="menuBtn" class="menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= SUBPAGE HERO WITH TOP IMAGE ================= -->
+    <section class="subpage-hero" style="background-image: url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1600&q=80');">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                <span>Other sources</span>
+                <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                <span>Literature</span>
+            </div>
+            <h1>Literature &amp; Historical Narratives</h1>
+            <p>
+                From ancient oral epics chanted by West African Griots to groundbreaking slave narratives,
+                Harlem Renaissance poetry, and post-colonial African literary masterpieces.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- ================= ORAL TRADITIONS & SLAVE NARRATIVES ================= -->
+    <section>
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-feather" aria-hidden="true"></i>
+                    FOUNDATIONAL VOICES
+                </span>
+                <h2>Oral Epics &amp; Firsthand Testimonies</h2>
+                <p>
+                    Reclaiming truth through the living memory of oral storytellers and the courageous autobiographies
+                    of formerly enslaved men and women.
+                </p>
+            </div>
+
+            <div class="books-grid">
+
+                <!-- Sundiata -->
+                <article class="book-card">
+                    <span class="card-tag">Oral Epic • c. 13th Century</span>
+                    <div class="book-icon">
+                        <i class="fas fa-book-journal-whills" aria-hidden="true"></i>
+                    </div>
+                    <h3>Epic of Sundiata</h3>
+                    <p><strong>Griot Djeli Mamadou Kouyaté / D.T. Niane</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> The foundational oral epic of the Mali Empire recounting the rise of Sundiata Keita,
+                                his overcoming of physical exile, the defeat of the sorcerer-king Soumaoro Kanté, and the establishment
+                                of the Manden Charter (an early declaration of peace and human rights).
+                            </p>
+                            <p>
+                                <strong>Key Theme:</strong> The sacred role of the <em>jeli</em> (griot) as the living repository of dynastic history,
+                                genealogy, diplomacy, and communal law.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Sundiata+an+epic+of+old+Mali" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Olaudah Equiano -->
+                <article class="book-card">
+                    <span class="card-tag">Slave Narrative • 1789</span>
+                    <div class="book-icon">
+                        <i class="fas fa-scroll" aria-hidden="true"></i>
+                    </div>
+                    <h3>The Interesting Narrative of the Life of Olaudah Equiano</h3>
+                    <p><strong>Olaudah Equiano (Gustavus Vassa)</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> Equiano's firsthand account of his childhood in Igboland (Nigeria), his kidnapping,
+                                survival of the Middle Passage, enslavement in the Caribbean and Virginia, and eventual purchase of his freedom.
+                            </p>
+                            <p>
+                                <strong>Historical Impact:</strong> Provided the British and international public with undeniable, articulate evidence
+                                of the horrors of the slave trade, accelerating the 1807 Abolition of the Slave Trade Act.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=The+Interesting+Narrative+of+the+Life+of+Olaudah+Equiano" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Frederick Douglass -->
+                <article class="book-card">
+                    <span class="card-tag">Slave Narrative • 1845</span>
+                    <div class="book-icon">
+                        <i class="fas fa-pen-nib" aria-hidden="true"></i>
+                    </div>
+                    <h3>Narrative of the Life of Frederick Douglass</h3>
+                    <p><strong>Frederick Douglass</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> Douglass details his upbringing in Maryland bondage, the psychological brutality of slaveholders,
+                                his clandestine acquisition of literacy, his physical defiance against the slave-breaker Covey, and his escape North.
+                            </p>
+                            <p>
+                                <strong>Core Philosophical Argument:</strong> Literacy and knowledge are incompatible with enslavement: "Once you learn to read, you will be forever free."
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Narrative+of+the+Life+of+Frederick+Douglass" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= MODERN & POST-COLONIAL MASTERPIECES ================= -->
+    <section style="background: var(--surface-secondary);">
+        <div class="container">
+
+            <div class="section-header">
+                <span class="section-label">
+                    <i class="fas fa-book-bookmark" aria-hidden="true"></i>
+                    MODERN CLASSICS
+                </span>
+                <h2>Post-Colonial Novels, Identity &amp; Historical Reckoning</h2>
+                <p>
+                    Seminal 20th and 21st-century works that dismantled colonial literary stereotypes and reclaimed African and diaspora experiences.
+                </p>
+            </div>
+
+            <div class="books-grid">
+
+                <!-- Chinua Achebe -->
+                <article class="book-card">
+                    <span class="card-tag">Post-Colonial Classic • 1958</span>
+                    <div class="book-icon">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                    </div>
+                    <h3>Things Fall Apart</h3>
+                    <p><strong>Chinua Achebe</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> Set in pre-colonial and early-colonial Nigeria, Achebe depicts the complex social fabric,
+                                judicial traditions, and spiritual rituals of the Umuofia clan, followed by the tragic fracture caused by British missionary and colonial imposition.
+                            </p>
+                            <p>
+                                <strong>Significance:</strong> Directly challenged Eurocentric colonial novels like Joyce Cary's *Mister Johnson* and Conrad's *Heart of Darkness*,
+                                presenting African characters with intricate interiority and moral dignity.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Things+Fall+Apart+Chinua+Achebe" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Toni Morrison -->
+                <article class="book-card">
+                    <span class="card-tag">Historical Reckoning • 1987</span>
+                    <div class="book-icon">
+                        <i class="fas fa-heart-crack" aria-hidden="true"></i>
+                    </div>
+                    <h3>Beloved</h3>
+                    <p><strong>Toni Morrison</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> Inspired by the true story of Margaret Garner, an enslaved woman who escaped Kentucky in 1856.
+                                Morrison addresses the lingering haunting ("rememory") of transatlantic chattel slavery and motherly trauma in post-Civil War Ohio.
+                            </p>
+                            <p>
+                                <strong>Significance:</strong> Pulitzer Prize winner and Nobel laureate masterpiece, honoring the "Sixty Million and more"
+                                who perished in the Middle Passage and during enslavement.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Beloved+Toni+Morrison" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Jamaica Kincaid -->
+                <article class="book-card">
+                    <span class="card-tag">Colonial Critique • 1988</span>
+                    <div class="book-icon">
+                        <i class="fas fa-compass" aria-hidden="true"></i>
+                    </div>
+                    <h3>A Small Place</h3>
+                    <p><strong>Jamaica Kincaid</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> A scorching, lyrical essay addressed directly to tourists in Antigua.
+                                Kincaid connects modern tourism to centuries of British colonial exploitation and the legacies of the sugar plantation economy.
+                            </p>
+                            <p>
+                                <strong>Core Question:</strong> How does leisurely travel interact with the historical wounds, economic precarity,
+                                and dignity of local populations?
+                            </p>
+                            <a href="https://openlibrary.org/search?q=A+Small+Place+Jamaica+Kincaid" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Ngugi wa Thiong'o -->
+                <article class="book-card">
+                    <span class="card-tag">Cultural Theory • 1986</span>
+                    <div class="book-icon">
+                        <i class="fas fa-language" aria-hidden="true"></i>
+                    </div>
+                    <h3>Decolonising the Mind</h3>
+                    <p><strong>Ngũgĩ wa Thiong'o</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> The Kenyan novelist and theorist examines how European colonial languages (English, French, Portuguese)
+                                served as weapons of mental subjugation, advocating for African literature written in indigenous African languages (like Gikuyu and Kiswahili).
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Decolonising+the+mind+Ngugi" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Wole Soyinka -->
+                <article class="book-card">
+                    <span class="card-tag">Drama &amp; Cosmology • 1975</span>
+                    <div class="book-icon">
+                        <i class="fas fa-masks-theater" aria-hidden="true"></i>
+                    </div>
+                    <h3>Death and the King's Horseman</h3>
+                    <p><strong>Wole Soyinka</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> Nobel laureate Soyinka dramatizes the collision between Yoruba spiritual metaphysics
+                                and British colonial administrators who fail to comprehend indigenous concepts of cosmic duty and sacrifice.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Death+and+the+Kings+Horseman" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+                <!-- Chimamanda Ngozi Adichie -->
+                <article class="book-card">
+                    <span class="card-tag">Historical Fiction • 2006</span>
+                    <div class="book-icon">
+                        <i class="fas fa-sun" aria-hidden="true"></i>
+                    </div>
+                    <h3>Half of a Yellow Sun</h3>
+                    <p><strong>Chimamanda Ngozi Adichie</strong></p>
+                    <details class="book-explorer">
+                        <summary class="read-btn">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            Explore Book Analysis
+                        </summary>
+                        <div class="book-detail">
+                            <p>
+                                <strong>About:</strong> A gripping historical exploration of the 1967–1970 Nigerian-Biafran War, examining class,
+                                ethnic identity, intellectual privilege, and the human cost of post-colonial geopolitical struggle.
+                            </p>
+                            <a href="https://openlibrary.org/search?q=Half+of+a+Yellow+Sun" target="_blank" rel="noopener" class="book-detail-link">
+                                Find Editions on OpenLibrary <i class="fas fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </details>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ================= UNIVERSAL AFRIMAX AI LAUNCHER & PANEL ================= -->
+    <button id="groqAiLauncher" class="groq-ai-launcher" type="button" aria-label="Open Afrimax AI Assistant">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
+        <span>Ask Afrimax AI</span>
+    </button>
+
+    <div id="groqAiPanel" class="groq-ai-panel" hidden aria-labelledby="groqHeading">
+        <div class="groq-ai-header">
+            <div class="groq-ai-header-info">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <div>
+                    <span class="groq-ai-badge">POWERED BY Afrimax AI</span>
+                    <h3 id="groqHeading">Africa &amp; The World Assistant</h3>
+                </div>
+            </div>
+            <button id="groqAiClose" class="groq-ai-close" type="button" aria-label="Close Afrimax AI Assistant">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div id="groqAiMessages" class="groq-ai-messages" role="log" aria-live="polite">
+            <div class="groq-msg groq-msg-bot">
+                Hello! I am Afrimax AI. Ask me about African literature, authors like Chinua Achebe and Toni Morrison, oral griot epics, or reading recommendations!
+            </div>
+        </div>
+
+        <div class="groq-suggested-prompts">
+            <button type="button" class="groq-prompt-pill">Analyze Things Fall Apart</button>
+            <button type="button" class="groq-prompt-pill">Who was Olaudah Equiano?</button>
+        </div>
+
+        <form id="groqAiForm" class="groq-ai-form">
+            <input
+                id="groqAiInput"
+                type="text"
+                placeholder="Ask Afrimax AI about literature..."
+                maxlength="1500"
+                autocomplete="off"
+                required
+            >
+            <button type="submit" aria-label="Send message to Afrimax AI">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
+
+
+    <!-- ================= BACK TO TOP BUTTON ================= -->
+    <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="Scroll to top of page" title="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-globe-africa" aria-hidden="true"></i>
+                        <span>Africa &amp; The World</span>
+                    </a>
+                    <p>
+                        An educational digital initiative dedicated to exploring African history, slavery,
+                        resistance, philosophy, and literature through multi-perspective scholarship.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="X Twitter"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Main Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="history.html">History &amp; Empires</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html#donate">Support Project</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Other Sources</h4>
+                    <ul class="footer-links">
+                        <li><a href="literature.html">Literature Archive</a></li>
+                        <li><a href="videos.html">Documentary Videos</a></li>
+                        <li><a href="compare.html">Compare Regions</a></li>
+                        <li><a href="trip-planner.html">AI Trip Planner</a></li>
+                        <li><a href="gallery.html">Visual Gallery</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>External Archives</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://whc.unesco.org" target="_blank" rel="noopener">UNESCO Heritage</a></li>
+                        <li><a href="https://www.si.edu" target="_blank" rel="noopener">Smithsonian NMAAHC</a></li>
+                        <li><a href="https://www.loc.gov" target="_blank" rel="noopener">Library of Congress</a></li>
+                        <li><a href="https://www.slavevoyages.org" target="_blank" rel="noopener">Slave Voyages DB</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Africa &amp; The World. Educational Open Access Initiative. All rights reserved.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="index.js"></script>
+</body>
+</html>

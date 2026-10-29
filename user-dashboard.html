@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveler &amp; Member Portal | Africa &amp; The World</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Plus Jakarta Sans Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+
+  <!-- Theme pre-init to avoid flash -->
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('africa_world_theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark-mode');
+          document.body && document.body.classList.add('dark-mode');
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <style>
+    :root {
+      /* Brand Colors matching index.css */
+      --primary: #c98222;
+      --primary-dark: #9d6217;
+      --primary-light: #f5ab42;
+      --primary-subtle: rgba(201, 130, 34, 0.12);
+      --primary-glow: rgba(201, 130, 34, 0.28);
+
+      /* Surface & Background matching index.css */
+      --background: #f8f5ef;
+      --surface: #ffffff;
+      --surface-card: #ffffff;
+      --surface-secondary: #f0ebe2;
+      --surface-hover: #fcfbf9;
+
+      /* Typography Colors matching index.css */
+      --text: #242424;
+      --text-heading: #161616;
+      --muted: #666666;
+      --muted-light: #888888;
+
+      /* Borders & Shadows matching index.css */
+      --border: #dddddd;
+      --border-subtle: #eae5dc;
+
+      --dark: #171717;
+      --green: #287c4b;
+      --green-bg: #eaf6ee;
+      --danger: #b91c1c;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.14);
+    }
+
+    body.dark-mode {
+      --background: #121214;
+      --surface: #1b1b1f;
+      --surface-card: #222227;
+      --surface-secondary: #16161a;
+      --surface-hover: #292930;
+
+      --text: #e6e3dd;
+      --text-heading: #f9f7f4;
+      --muted: #a4a199;
+      --muted-light: #c2bfb8;
+
+      --border: #35353d;
+      --border-subtle: #292930;
+
+      --primary-subtle: rgba(201, 130, 34, 0.22);
+      --primary-glow: rgba(201, 130, 34, 0.35);
+
+      --dark: #0a0a0c;
+      --green-bg: rgba(40, 124, 75, 0.22);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.6);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .user-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .user-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    /* Logo styled exactly matching index.css */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+    .logo i {
+      font-size: 1.9rem;
+      color: var(--primary);
+    }
+    .logo-highlight {
+      color: var(--primary);
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary);
+      background: var(--primary-subtle);
+    }
+    .user-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      padding: 6px 14px 6px 8px;
+    }
+    .user-chip-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      overflow: hidden;
+    }
+    .user-chip-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 7px;
+      padding: 7px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-logout:hover {
+      background: #fee2e2;
+      color: var(--danger);
+      border-color: #fca5a5;
+    }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      width: 100%;
+      flex: 1;
+    }
+    
+    /* Warm Heritage Hero Banner matching index.css brand palette */
+    .hero-banner {
+      background: linear-gradient(135deg, #171717 0%, #35210a 50%, #9d6217 82%, #c98222 100%);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 14px 32px -6px rgba(201, 130, 34, 0.28);
+      border: 1px solid rgba(201, 130, 34, 0.3);
+    }
+    .hero-banner h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.4px;
+      color: #ffffff;
+    }
+    .hero-banner p {
+      font-size: 14.5px;
+      opacity: 0.95;
+      max-width: 650px;
+      line-height: 1.5;
+      color: #f0ebe2;
+    }
+    .btn-ai-planner {
+      background: var(--primary);
+      color: #ffffff !important;
+      padding: 12px 22px;
+      border-radius: 7px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 14px rgba(201, 130, 34, 0.35);
+      flex-shrink: 0;
+    }
+    .btn-ai-planner:hover { 
+      background: var(--primary-dark);
+      transform: translateY(-2px); 
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .stat-card-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .stat-card-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    
+    .dashboard-two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title { 
+      font-size: 1.15rem; 
+      font-weight: 700; 
+      margin-bottom: 16px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      color: var(--text-heading);
+    }
+
+    /* Curator Messages & Notification Feed */
+    .curator-message-card {
+      background: #fffdf9;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+    .curator-message-card.unread {
+      background: #fffcf5;
+      border-color: #f0d6b2;
+      box-shadow: 0 2px 10px rgba(201, 130, 34, 0.12);
+    }
+    .curator-msg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .curator-tag-pill {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .curator-tag-pill.broadcast {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(40, 124, 75, 0.25);
+    }
+    .curator-tag-pill.direct {
+      background: var(--primary-subtle);
+      color: var(--primary-dark);
+      border: 1px solid rgba(201, 130, 34, 0.25);
+    }
+    .curator-msg-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+    .curator-msg-body {
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+    .curator-msg-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--muted);
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 8px;
+    }
+    .btn-ack-msg {
+      background: var(--surface-secondary);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-ack-msg:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .order-table { width: 100%; border-collapse: collapse; }
+    .order-table th { padding: 10px 12px; font-size: 12px; font-weight: 600; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
+    .order-table td { padding: 14px 12px; font-size: 13.5px; border-bottom: 1px solid var(--surface-secondary); }
+    
+    /* Warm Badges */
+    .status-badge { display: inline-flex; align-items:center; gap:4px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+    .status-badge.confirmed { background: var(--green-bg); color: var(--green); border: 1px solid rgba(40, 124, 75, 0.25); }
+    .status-badge.ai-booked { background: var(--primary-subtle); color: var(--primary-dark); border: 1px solid rgba(201, 130, 34, 0.25); }
+    .status-badge.review { background: var(--surface-secondary); color: var(--text); border: 1px solid var(--border); }
+
+    .wishlist-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--surface-secondary); }
+    .wishlist-item img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; }
+    
+    .user-menu-btn {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-heading);
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .user-menu-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Back to Top Button */
+    .back-to-top-btn {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 1090;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: all 0.25s ease;
+    }
+    .back-to-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .back-to-top-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: auto;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-two-col { grid-template-columns: 1fr; }
+      .hero-banner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
+      .user-nav { padding: 12px 18px; position: sticky; top: 0; }
+      .user-menu-btn { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border-bottom: 2px solid var(--border);
+        box-shadow: var(--shadow-lg);
+        flex-direction: column;
+        padding: 14px 18px;
+        gap: 8px;
+        z-index: 100;
+      }
+      .nav-links.active { display: flex; }
+      .nav-links a {
+        display: block;
+        padding: 10px 14px;
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+      }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      html, body { overflow-x: hidden; }
+      .user-nav {
+        padding: 10px 14px;
+      }
+      .user-nav-left {
+        gap: 12px;
+      }
+      .user-nav-right {
+        gap: 8px;
+      }
+      /* Hide user name and email on small phones, show profile image avatar only */
+      .user-chip-text {
+        display: none !important;
+      }
+      .user-chip {
+        padding: 2px !important;
+        background: transparent !important;
+        border: none !important;
+      }
+      .user-chip-avatar {
+        width: 34px !important;
+        height: 34px !important;
+      }
+      .btn-logout span {
+        display: none !important;
+      }
+      .btn-logout {
+        padding: 7px 10px !important;
+      }
+      .container {
+        padding: 16px 12px;
+      }
+      .hero-banner {
+        padding: 18px 16px;
+        border-radius: 10px;
+      }
+      .hero-banner h1 {
+        font-size: 20px;
+      }
+      .hero-banner p {
+        font-size: 13px;
+      }
+      .btn-ai-planner {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 16px;
+      }
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .stat-card {
+        padding: 14px;
+      }
+      .stat-card-val {
+        font-size: 20px;
+      }
+      .dashboard-two-col {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .card {
+        padding: 16px;
+      }
+      
+      /* Curator Advisories & Direct Dispatches Card Mobile Fluid Layout */
+      .curator-hub-title {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+      .curator-title-left {
+        width: 100% !important;
+        justify-content: space-between !important;
+      }
+      .curator-title-right {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+      }
+      .curator-title-right button {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .curator-message-card {
+        padding: 12px 14px;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .curator-msg-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+      }
+      .curator-msg-header > div {
+        flex-wrap: wrap !important;
+        max-width: 100% !important;
+      }
+      .curator-msg-title {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .curator-msg-body {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .curator-msg-footer {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+      .curator-msg-footer button {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+      }
+      
+      .order-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 12px;
+      }
+      .order-table th, .order-table td {
+        padding: 8px 10px;
+        white-space: nowrap;
+      }
+      .wishlist-item {
+        flex-wrap: wrap;
+      }
+      .footer {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+        padding: 16px;
+      }
+    }
+    @media (max-width: 380px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .logo span { display: none; }
+    }
+
+    /* Icon Button (Theme Toggle) */
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    body.dark-mode .icon-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--muted-light);
+    }
+    body.dark-mode .icon-btn:hover {
+      background: rgba(201, 130, 34, 0.18);
+      border-color: var(--primary);
+      color: var(--primary-light);
+    }
+
+    /* Dark Mode Component Overrides */
+    body.dark-mode .user-nav {
+      background: rgba(22, 22, 26, 0.98);
+      border-bottom-color: rgba(201, 130, 34, 0.2);
+    }
+    body.dark-mode .nav-links a {
+      color: var(--muted-light);
+    }
+    body.dark-mode .nav-links a:hover,
+    body.dark-mode .nav-links a.active {
+      color: var(--primary-light);
+      background: rgba(201, 130, 34, 0.15);
+    }
+    body.dark-mode .user-chip {
+      background: #222227;
+      border-color: #35353d;
+    }
+    body.dark-mode .btn-logout {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #35353d;
+      color: var(--muted-light);
+    }
+    body.dark-mode .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #f87171;
+    }
+    body.dark-mode .card,
+    body.dark-mode .stat-card {
+      background: #1b1b1f;
+      border-color: #35353d;
+    }
+    body.dark-mode .curator-message-card {
+      background: #201e1a;
+      border-color: #3d3527;
+    }
+    body.dark-mode .curator-message-card.unread {
+      background: #262118;
+      border-color: rgba(201, 130, 34, 0.4);
+    }
+    body.dark-mode .curator-msg-title {
+      color: var(--text-heading);
+    }
+    body.dark-mode .curator-msg-body {
+      color: var(--text);
+    }
+    body.dark-mode .btn-ack-msg {
+      background: #28241e;
+      border-color: #423829;
+      color: var(--text);
+    }
+    body.dark-mode .btn-ack-msg:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    body.dark-mode .order-table th {
+      color: var(--muted);
+      border-bottom-color: #35353d;
+    }
+    body.dark-mode .order-table td {
+      border-bottom-color: #26262e;
+      color: var(--text);
+    }
+    body.dark-mode .status-badge.review {
+      background: #26262b;
+      color: var(--text);
+      border-color: #383842;
+    }
+    body.dark-mode .wishlist-item {
+      border-bottom-color: #26262e;
+    }
+    body.dark-mode .footer {
+      background: #141417;
+      border-top-color: #2b2b33;
+    }
+    body.dark-mode .back-to-top-btn {
+      background: #1e1e24;
+      border-color: rgba(201, 130, 34, 0.3);
+      color: var(--primary-light);
+    }
+    body.dark-mode .modal-content {
+      background: #1b1b1f;
+      border-color: #35353d;
+      color: var(--text);
+    }
+    body.dark-mode .form-input {
+      background: #26262b;
+      border-color: #3d3d47;
+      color: var(--text);
+    }
+    body.dark-mode .user-menu-btn {
+      background: #1e1e24;
+      border-color: #35353d;
+      color: var(--text-heading);
+    }
+    @media (max-width: 900px) {
+      body.dark-mode .nav-links {
+        background: #1b1b1f;
+        border-bottom-color: #35353d;
+      }
+      body.dark-mode .nav-links a {
+        border-color: #2d2d36;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Customer Navigation -->
+  <nav class="user-nav">
+    <div class="user-nav-left">
+      <a href="index.html" class="logo" aria-label="Africa and The World Home">
+        <i class="fas fa-globe-africa" aria-hidden="true"></i>
+        <span>Africa<span class="logo-highlight">World</span></span>
+      </a>
+      <ul class="nav-links" id="userNavLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="trip-planner.html">AI Trip Planner</a></li>
+        <li><a href="history.html">Empires &amp; History</a></li>
+        <li><a href="gallery.html">Visual Gallery</a></li>
+        <li><a href="literature.html">Literature</a></li>
+      </ul>
+    </div>
+
+    <div class="user-nav-right">
+      <button id="darkModeBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      <div class="user-chip">
+        <div class="user-chip-avatar" id="avatarBox">
+          <span id="avatarInitial">U</span>
+        </div>
+        <div class="user-chip-text">
+          <div style="font-size:13px; font-weight:700; color:var(--text-heading);" id="userGreetingName">Traveler</div>
+          <div style="font-size:10px; color:var(--muted);" id="userEmailDisplay">firebase-user</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn" title="Sign out from your account">
+        <i class="fas fa-arrow-right-from-bracket"></i>
+        <span>Sign Out</span>
+      </button>
+      <button class="user-menu-btn" id="userMenuToggleBtn" aria-label="Toggle navigation menu" title="Navigation menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Hero Welcome Banner -->
+    <div class="hero-banner">
+      <div>
+        <h1 id="heroWelcomeTitle">Welcome to your Cultural Portal!</h1>
+        <p>Explore UNESCO World Heritage trails, manage your AI travel itineraries across 54 African nations, and consult curatorial advisories from historians.</p>
+      </div>
+      <a href="trip-planner.html" class="btn-ai-planner">
+        <i class="fas fa-robot"></i>
+        <span>Plan Trip with Afrimax AI</span>
+      </a>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-title">UPCOMING EXPEDITIONS</div>
+        <div class="stat-card-val" id="userStatUpcoming">0 Confirmed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">AI ITINERARIES SAVED</div>
+        <div class="stat-card-val" id="userStatSaved">0 Trips</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">CURATOR ADVISORIES</div>
+        <div class="stat-card-val" id="userStatMessages">0 Messages</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">MEMBER STATUS</div>
+        <div class="stat-card-val" style="font-size:20px;">Heritage Explorer</div>
+      </div>
+    </div>
+
+    <!-- Curator Messages & Direct Dispatches Card -->
+    <div class="card curator-hub-card" style="margin-bottom:24px; width:100%; box-sizing:border-box;">
+      <div class="card-title curator-hub-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div class="curator-title-left" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <i class="fas fa-envelope-open-text" style="color:var(--primary); font-size:18px;"></i>
+          <span style="font-size:1.15rem; font-weight:700;">Curator Advisories &amp; Direct Dispatches</span>
+          <span id="userUnreadMsgBadge" style="background:var(--primary); color:#fff; font-size:11px; font-weight:700; padding:2px 8px; border-radius:12px; display:none;">0 New</span>
+        </div>
+        <div class="curator-title-right" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span style="font-size:12px; color:var(--muted); font-weight:500;">Direct from Curator Tony Robert</span>
+          <button type="button" id="openInquiryBtn" onclick="document.getElementById('travelerInquiryModal').style.display='flex'" style="background:var(--primary); color:#fff; border:none; padding:8px 14px; border-radius:7px; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            <i class="fas fa-paper-plane"></i> Send Inquiry to Curator
+          </button>
+        </div>
+      </div>
+      <div id="userMessagesList" style="width:100%; box-sizing:border-box;">
+        <!-- Rendered dynamically -->
+      </div>
+      <div id="userMessagesPagination" style="display:flex; justify-content:flex-end; gap:6px; margin-top:14px; flex-wrap:wrap;"></div>
+    </div>
+
+    <!-- 2 Column Section: Orders & Wishlist -->
+    <div class="dashboard-two-col">
+      
+      <!-- Recent Expeditions Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>My Expeditions &amp; AI Service Bookings</span>
+          <a href="trip-planner.html" style="font-size:12.5px; color:var(--primary); text-decoration:none; font-weight:700;">+ Book New via AI</a>
+        </div>
+        <div style="overflow-x:auto; width:100%; -webkit-overflow-scrolling:touch;">
+          <table class="order-table" style="min-width:480px; width:100%;">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Expedition / Service</th>
+                <th>Travel Dates</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="userBookingsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <div id="userBookingsPagination" style="display:flex; justify-content:flex-end; gap:6px; margin-top:14px; flex-wrap:wrap;"></div>
+      </div>
+
+      <!-- Saved Heritage Wishlist -->
+      <div class="card">
+        <div class="card-title">
+          <span>Saved Heritage Sites</span>
+          <span style="font-size:12px; color:var(--muted); font-weight:500;">Saved by you</span>
+        </div>
+        <div class="wishlist-item">
+          <img src="images/ba.jpg" alt="Kush Pyramids" onerror="this.src='https://images.unsplash.com/photo-1549887534-1541e9326642?w=80&h=80&fit=crop'">
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:700; color:var(--text-heading);">Pyramids of Meroë</div>
+            <div style="font-size:12px; color:var(--muted);">Kingdom of Kush &bull; Sudan</div>
+          </div>
+          <a href="trip-planner.html" style="background:var(--primary); color:#ffffff; text-decoration:none; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:600;">Plan</a>
+        </div>
+        <div class="wishlist-item">
+          <img src="images/art.jpg" alt="Ashanti Art" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=80&h=80&fit=crop'">
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:700; color:var(--text-heading);">Royal Kente of Bonwire</div>
+            <div style="font-size:12px; color:var(--muted);">Ashanti Empire &bull; Ghana</div>
+          </div>
+          <a href="trip-planner.html" style="background:var(--primary); color:#ffffff; text-decoration:none; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:600;">Plan</a>
+        </div>
+        <div class="wishlist-item">
+          <img src="images/1.png" alt="Benin Bronze" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop'">
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:700; color:var(--text-heading);">Benin Bronze Court Plaque</div>
+            <div style="font-size:12px; color:var(--muted);">Kingdom of Benin &bull; Nigeria</div>
+          </div>
+          <a href="history.html" style="background:var(--primary-subtle); color:var(--primary-dark); text-decoration:none; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:600;">Read</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      &copy; 2026 Africa &amp; The World Educational Digital Initiative. Authenticated via Firebase.
+    </div>
+    <div style="display:flex; gap:16px;">
+      <a href="index.html" style="color:var(--muted); text-decoration:none;">Explore Home</a>
+      <a href="trip-planner.html" style="color:var(--muted); text-decoration:none;">AI Trip Planner</a>
+      <a href="gallery.html" style="color:var(--muted); text-decoration:none;">Gallery</a>
+  </footer>
+
+  <!-- Modal: Send Traveler Inquiry to Curator -->
+  <div id="travelerInquiryModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:12px; padding:24px; max-width:500px; width:90%; box-shadow:0 10px 30px rgba(0,0,0,0.2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="margin:0; font-size:16px; font-weight:700; color:var(--text-heading);"><i class="fas fa-paper-plane" style="color:var(--primary); margin-right:6px;"></i> Send Message to Curator</h3>
+        <button type="button" onclick="document.getElementById('travelerInquiryModal').style.display='none'" style="background:none; border:none; font-size:18px; cursor:pointer; color:#94a3b8;"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="travelerInquiryForm" onsubmit="window.handleSendTravelerInquiry(event); return false;">
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:600; color:#475569; display:block; margin-bottom:4px;">Subject / Focus</label>
+          <input type="text" id="userInquirySubject" placeholder="e.g. Swahili Coast Route Question / Safari Inquiry" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:13px;">
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="font-size:12px; font-weight:600; color:#475569; display:block; margin-bottom:4px;">Your Message or Consultation Request</label>
+          <textarea id="userInquiryMessage" rows="4" placeholder="Ask questions about verified routes, historic guides, local traditions, or booking adjustments..." required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:13px; font-family:inherit;"></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" onclick="document.getElementById('travelerInquiryModal').style.display='none'" style="background:#f1f5f9; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;">Cancel</button>
+          <button type="submit" style="background:var(--primary); color:#fff; border:none; padding:8px 16px; border-radius:7px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fas fa-paper-plane"></i> Send to Curator</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase Auth Session Sync & Messages Engine -->
+  <script type="module">
+    import { onUserAuthStateChange, signOutUser, saveUserSession } from "./firebase-auth.js";
+    import { getUserMessages, markMessageRead, sendMessage, pushNotification } from "./supabase-admin.js";
+
+    const nameEl = document.getElementById('userGreetingName');
+    const heroTitleEl = document.getElementById('heroWelcomeTitle');
+    const emailEl = document.getElementById('userEmailDisplay');
+    const avatarBox = document.getElementById('avatarBox');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    let activeUserEmail = null;
+
+    // Sync from local cache first for instant render
+    const cached = localStorage.getItem('africa_world_customer');
+    if (cached) {
+      try {
+        const u = JSON.parse(cached);
+        renderUser(u);
+      } catch(e) {}
+    }
+
+    // Listen to real Firebase Auth state
+    onUserAuthStateChange((user) => {
+      if (user) {
+        saveUserSession(user);
+        renderUser({
+          name: user.displayName || user.email.split('@')[0],
+          email: user.email,
+          photoURL: user.photoURL
+        });
+      }
+    });
+
+    function renderUser(u) {
+      const name = u.name || 'Traveler';
+      activeUserEmail = (u.email || '').toLowerCase();
+      nameEl.textContent = name;
+      heroTitleEl.textContent = `Welcome back, ${name}!`;
+      emailEl.textContent = u.email || 'firebase-verified';
+
+      if (u.photoURL) {
+        avatarBox.innerHTML = `<img src="${u.photoURL}" alt="${name}">`;
+      } else {
+        avatarBox.innerHTML = `<span>${name.charAt(0).toUpperCase()}</span>`;
+      }
+      renderUserBookings(activeUserEmail);
+      renderUserMessages(activeUserEmail);
+    }
+
+    let currentMsgPage = 1;
+
+    // Render Curator Messages and Direct Dispatches for this traveler
+    function renderUserMessages(userEmail) {
+      const container = document.getElementById('userMessagesList');
+      const badge = document.getElementById('userUnreadMsgBadge');
+      const statMsg = document.getElementById('userStatMessages');
+      const paginContainer = document.getElementById('userMessagesPagination');
+      if (!container) return;
+
+      const messages = getUserMessages(userEmail);
+      // Filter so read messages disappear to maintain screen without overflowing
+      const unreadMessages = messages.filter(m => !m.read);
+      const unreadCount = unreadMessages.length;
+
+      if (statMsg) {
+        statMsg.textContent = `${unreadCount} ${unreadCount === 1 ? 'New Message' : 'New Messages'}`;
+      }
+
+      if (badge) {
+        if (unreadCount > 0) {
+          badge.textContent = `${unreadCount} New`;
+          badge.style.display = 'inline-block';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      if (unreadMessages.length === 0) {
+        if (paginContainer) paginContainer.innerHTML = '';
+        container.innerHTML = `
+          <div style="padding:28px 20px; text-align:center; color:var(--muted); background:var(--surface-secondary); border-radius:10px; font-size:13px;">
+            <i class="fas fa-circle-check" style="font-size:28px; color:var(--green); margin-bottom:8px; display:block;"></i>
+            <strong style="color:var(--text-heading); font-size:14px;">All caught up!</strong>
+            <div style="font-size:12px; color:var(--muted); margin-top:4px;">All curator advisories and dispatches have been acknowledged. New messages will appear here.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const pageSize = 5;
+      const totalPages = Math.ceil(unreadMessages.length / pageSize) || 1;
+      if (currentMsgPage > totalPages) currentMsgPage = totalPages;
+      if (currentMsgPage < 1) currentMsgPage = 1;
+
+      const start = (currentMsgPage - 1) * pageSize;
+      const paginatedMsgs = unreadMessages.slice(start, start + pageSize);
+
+      container.innerHTML = paginatedMsgs.map(m => {
+        const isBroadcast = m.recipientEmail === 'all' || m.type === 'broadcast';
+        return `
+          <div class="curator-message-card unread" id="msgCard-${m.id}">
+            <div class="curator-msg-header">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; max-width:100%;">
+                <span class="curator-tag-pill ${isBroadcast ? 'broadcast' : 'direct'}">
+                  ${isBroadcast ? '📢 Global Broadcast' : '👤 Direct Message for You'}
+                </span>
+                <span class="curator-msg-title" style="word-break:break-word; overflow-wrap:anywhere;">${escapeHtml(m.title)}</span>
+              </div>
+              <span style="font-size:11px; color:var(--muted); white-space:nowrap;"><i class="fas fa-clock" style="margin-right:3px;"></i>${escapeHtml(m.dateFormatted || 'Recent')}</span>
+            </div>
+            <div class="curator-msg-body" style="word-break:break-word; overflow-wrap:anywhere;">
+              ${escapeHtml(m.message)}
+            </div>
+            <div class="curator-msg-footer" style="flex-wrap:wrap; gap:8px;">
+              <span><i class="fas fa-signature" style="color:var(--primary); margin-right:4px;"></i> ${escapeHtml(m.sender || 'Curator Tony Robert')}</span>
+              <button type="button" class="btn-ack-msg" onclick="window.acknowledgeMessage('${m.id}')" title="Mark as read and dismiss from dashboard">
+                <i class="fas fa-check"></i> Mark as Read &amp; Dismiss
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (paginContainer) {
+        if (totalPages <= 1) {
+          paginContainer.innerHTML = '';
+        } else {
+          paginContainer.innerHTML = `
+            <button type="button" ${currentMsgPage === 1 ? 'disabled' : ''} onclick="window.changeMsgPage(${currentMsgPage - 1})" style="padding:4px 10px; font-size:11px; border:1px solid var(--border); border-radius:6px; background:var(--surface); cursor:pointer;">&laquo; Prev</button>
+            <span style="font-size:11px; color:var(--muted); align-self:center; margin:0 4px;">Page ${currentMsgPage} of ${totalPages}</span>
+            <button type="button" ${currentMsgPage === totalPages ? 'disabled' : ''} onclick="window.changeMsgPage(${currentMsgPage + 1})" style="padding:4px 10px; font-size:11px; border:1px solid var(--border); border-radius:6px; background:var(--surface); cursor:pointer;">Next &raquo;</button>
+          `;
+        }
+      }
+    }
+
+    window.changeMsgPage = function(page) {
+      currentMsgPage = page;
+      renderUserMessages(activeUserEmail);
+    };
+
+    window.acknowledgeMessage = function(id) {
+      const card = document.getElementById(`msgCard-${id}`);
+      if (card) {
+        card.style.transition = 'all 0.3s ease';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          markMessageRead(id);
+          renderUserMessages(activeUserEmail);
+        }, 280);
+      } else {
+        markMessageRead(id);
+        renderUserMessages(activeUserEmail);
+      }
+    };
+
+    window.handleSendTravelerInquiry = function(e) {
+      e.preventDefault();
+      const subj = document.getElementById('userInquirySubject').value.trim();
+      const msg = document.getElementById('userInquiryMessage').value.trim();
+      if (!msg) return;
+
+      const travelerName = (nameEl && nameEl.textContent) ? nameEl.textContent : 'Traveler';
+      sendMessage({
+        sender: travelerName,
+        senderEmail: activeUserEmail,
+        recipientEmail: 'tony.robert@africaworld.org',
+        recipientName: 'Curator Tony Robert',
+        title: subj || 'Traveler Consultation Inquiry',
+        message: msg,
+        type: 'inquiry'
+      });
+
+      pushNotification({
+        title: `Traveler Inquiry: ${travelerName}`,
+        message: `${subj || 'Direct Consultation'}: "${msg.slice(0, 50)}${msg.length > 50 ? '...' : ''}"`,
+        type: 'user',
+        recipientEmail: activeUserEmail
+      });
+
+      document.getElementById('userInquirySubject').value = '';
+      document.getElementById('userInquiryMessage').value = '';
+      document.getElementById('travelerInquiryModal').style.display = 'none';
+
+      renderUserMessages(activeUserEmail);
+      alert('Your inquiry was sent directly to Curator Tony Robert! You will receive dispatches & updates here.');
+    };
+
+    window.userBookingsCurrentPage = 1;
+    window.changeUserBookingsPage = function(page) {
+      window.userBookingsCurrentPage = page;
+      const customer = JSON.parse(localStorage.getItem('africa_world_customer') || '{}');
+      renderUserBookings(customer.email);
+    };
+
+    function renderUserBookings(userEmail) {
+      const tbody = document.getElementById('userBookingsTableBody');
+      const paginContainer = document.getElementById('userBookingsPagination');
+      if (!tbody) return;
+      const allBookings = JSON.parse(localStorage.getItem('africa_world_bookings') || '[]');
+      
+      // Filter bookings strictly for the current logged-in user
+      const userBookings = userEmail 
+        ? allBookings.filter(b => b.travelerEmail && b.travelerEmail.toLowerCase() === userEmail.toLowerCase())
+        : allBookings;
+
+      // Update stat cards dynamically
+      const statUpcoming = document.getElementById('userStatUpcoming');
+      const statSaved = document.getElementById('userStatSaved');
+      if (statUpcoming) {
+        const confirmedCount = userBookings.filter(b => b.status === 'Confirmed' || b.status === 'AI Confirmed').length;
+        statUpcoming.textContent = `${confirmedCount} Confirmed`;
+      }
+      if (statSaved) {
+        statSaved.textContent = `${userBookings.length} Trips`;
+      }
+
+      const totalItems = userBookings.length;
+      const pageSize = 5;
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+      const validPage = Math.min(Math.max(1, window.userBookingsCurrentPage || 1), totalPages);
+      window.userBookingsCurrentPage = validPage;
+      const start = (validPage - 1) * pageSize;
+      const pagedBookings = userBookings.slice(start, start + pageSize);
+
+      if (userBookings.length > 0) {
+        tbody.innerHTML = pagedBookings.map(b => `
+          <tr>
+            <td><strong>#${escapeHtml(b.id)}</strong></td>
+            <td>
+              <div style="font-weight:600; color:var(--text-heading);">${escapeHtml(b.serviceTitle)}</div>
+              <div style="font-size:11px; color:var(--muted);"><i class="fas fa-route" style="color:var(--primary);"></i> ${escapeHtml(b.destination || 'Africa')} &bull; ${escapeHtml(b.bookedVia || 'Trip Planner')}</div>
+            </td>
+            <td>${escapeHtml(b.travelDates || 'Flexible 2026/2027')}</td>
+            <td>
+              <span class="status-badge ${b.status === 'AI Confirmed' || b.status === 'Confirmed' ? 'confirmed' : 'review'}">
+                <i class="fas fa-check-circle"></i> ${escapeHtml(b.status || 'Confirmed')}
+              </span>
+            </td>
+            <td>
+              <button onclick="alert('Viewing Expedition #${escapeHtml(b.id)}:\\n${escapeHtml(b.serviceTitle)}\\n\\nParty Size: ${b.partySize || 2} Travelers\\n\\nCuratorial Notes:\\n${escapeHtml(b.aiNotes || 'Custom itinerary saved to Supabase.')}')" style="background:var(--primary-subtle); border:1px solid rgba(201,130,34,0.25); color:var(--primary-dark); padding:5px 12px; border-radius:6px; cursor:pointer; font-size:11.5px; font-weight:700;">Details</button>
+            </td>
+          </tr>
+        `).join('');
+
+        if (paginContainer) {
+          if (totalPages > 1) {
+            let html = `
+              <button onclick="window.changeUserBookingsPage(${validPage - 1})" ${validPage <= 1 ? 'disabled' : ''} style="padding:4px 10px; border-radius:6px; border:1px solid #cbd5e1; background:#fff; font-size:12px; cursor:pointer; font-weight:600;">Prev</button>
+            `;
+            for (let p = 1; p <= totalPages; p++) {
+              html += `
+                <button onclick="window.changeUserBookingsPage(${p})" style="padding:4px 10px; border-radius:6px; border:1px solid ${p === validPage ? 'var(--primary)' : '#cbd5e1'}; background:${p === validPage ? 'var(--primary)' : '#fff'}; color:${p === validPage ? '#fff' : 'inherit'}; font-size:12px; cursor:pointer; font-weight:600;">${p}</button>
+              `;
+            }
+            html += `
+              <button onclick="window.changeUserBookingsPage(${validPage + 1})" ${validPage >= totalPages ? 'disabled' : ''} style="padding:4px 10px; border-radius:6px; border:1px solid #cbd5e1; background:#fff; font-size:12px; cursor:pointer; font-weight:600;">Next</button>
+              <span style="font-size:12px; color:var(--muted); margin-left:6px; align-self:center;">Page ${validPage} of ${totalPages}</span>
+            `;
+            paginContainer.innerHTML = html;
+          } else {
+            paginContainer.innerHTML = '';
+          }
+        }
+      } else {
+        if (paginContainer) paginContainer.innerHTML = '';
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align:center; padding:36px 16px; color:var(--muted);">
+              <i class="fas fa-compass" style="font-size:32px; color:var(--primary-light); margin-bottom:10px; display:block;"></i>
+              <div style="font-weight:700; font-size:14px; color:var(--text-heading);">No expeditions booked yet for ${escapeHtml(userEmail || 'your account')}</div>
+              <div style="font-size:12px; margin-top:4px; color:var(--muted);">Use our Afrimax AI trip planner to craft and save your personalized itinerary across Africa.</div>
+              <a href="trip-planner.html" style="display:inline-block; margin-top:12px; background:var(--primary); color:#fff; padding:8px 18px; border-radius:7px; text-decoration:none; font-size:12.5px; font-weight:700; box-shadow:0 4px 12px rgba(201,130,34,0.3);">Plan Trip with Afrimax AI &rarr;</a>
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    renderUserBookings(activeUserEmail);
+    renderUserMessages(activeUserEmail);
+
+    // Live storage sync for incoming messages
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'africa_world_messages') {
+        renderUserMessages(activeUserEmail);
+      }
+    });
+    window.addEventListener('africa_world_new_message', () => {
+      renderUserMessages(activeUserEmail);
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      if (confirm('Sign out from your Africa & The World account?')) {
+        await signOutUser();
+        window.location.href = 'user-login.html';
+      }
+    });
+
+    // Mobile Hamburger Menu Toggle
+    const userMenuBtn = document.getElementById('userMenuToggleBtn');
+    const userNavLinks = document.getElementById('userNavLinks');
+    if (userMenuBtn && userNavLinks) {
+      userMenuBtn.addEventListener('click', () => {
+        const isOpen = userNavLinks.classList.toggle('active');
+        const icon = userMenuBtn.querySelector('i');
+        if (icon) {
+          icon.className = isOpen ? 'fas fa-xmark' : 'fas fa-bars';
+        }
+      });
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!userNavLinks.contains(e.target) && !userMenuBtn.contains(e.target)) {
+          userNavLinks.classList.remove('active');
+          const icon = userMenuBtn.querySelector('i');
+          if (icon) icon.className = 'fas fa-bars';
+        }
+      });
+    }
+
+    // Back to Top Button Handler
+    const userBackToTop = document.getElementById('userBackToTopBtn');
+    if (userBackToTop) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 250) {
+          userBackToTop.classList.add('visible');
+        } else {
+          userBackToTop.classList.remove('visible');
+        }
+      });
+      userBackToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Dark mode toggle functionality
+    const darkModeBtn = document.getElementById("darkModeBtn");
+    const updateDarkModeIcon = (isDark) => {
+      if (!darkModeBtn) return;
+      const icon = darkModeBtn.querySelector("i");
+      if (!icon) return;
+      if (isDark) {
+        icon.className = "fas fa-sun";
+        darkModeBtn.setAttribute("aria-label", "Switch to light mode");
+        darkModeBtn.setAttribute("title", "Switch to light mode");
+      } else {
+        icon.className = "fas fa-moon";
+        darkModeBtn.setAttribute("aria-label", "Switch to dark mode");
+        darkModeBtn.setAttribute("title", "Switch to dark mode");
+      }
+    };
+    if (darkModeBtn) {
+      updateDarkModeIcon(document.documentElement.classList.contains("dark-mode") || document.body.classList.contains("dark-mode"));
+      darkModeBtn.addEventListener("click", () => {
+        const isDark = document.body.classList.toggle("dark-mode");
+        document.documentElement.classList.toggle("dark-mode", isDark);
+        try {
+          localStorage.setItem("africa_world_theme", isDark ? "dark" : "light");
+        } catch(e) {}
+        updateDarkModeIcon(isDark);
+      });
+    }
+  </script>
+
+  <!-- Back to Top Button -->
+  <button id="userBackToTopBtn" class="back-to-top-btn" type="button" aria-label="Scroll back to top" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Welcoming Celebration & Moving Explosion Animation -->
+  <script src="welcome-celebration.js"></script>
+</body>
+</html>

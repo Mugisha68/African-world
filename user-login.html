@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Login | Africa &amp; The World</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Auth Stylesheet -->
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body class="user-auth-body">
+
+  <div class="user-login-wrapper">
+    <div class="user-card">
+      
+      <!-- Brand Header -->
+      <div class="user-brand-head">
+        <a href="index.html" class="user-brand-logo">
+          <i class="fas fa-globe-africa"></i>
+          <span>Africa<span style="color:#059669;">World</span></span>
+        </a>
+        <h1 class="user-brand-title">Welcome Back</h1>
+        <p class="user-brand-sub">Sign in with Firebase to access saved itineraries, AI trips &amp; cultural artifacts</p>
+      </div>
+
+      <!-- Social Login Buttons (Google Auth powered by Firebase) -->
+      <div class="social-buttons-row">
+        <button type="button" class="btn-social" id="googleSignInBtn" style="flex:1;">
+          <i class="fab fa-google" style="color: #ea4335;"></i>
+          <span>Sign in with Google</span>
+        </button>
+      </div>
+
+      <div class="social-divider">
+        <span>or sign in with email</span>
+      </div>
+
+      <!-- Error / Notice Box -->
+      <div id="authAlert" style="display:none; padding:10px 14px; margin-bottom:14px; border-radius:8px; font-size:13px; font-weight:500; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;">
+      </div>
+
+      <!-- User Login Form -->
+      <form id="userLoginForm">
+        
+        <div class="user-form-group">
+          <label for="userEmail">Email Address</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input 
+              type="email" 
+              id="userEmail" 
+              placeholder="name@example.com" 
+              required
+              autocomplete="email"
+              value="customer@world.org"
+            >
+          </div>
+        </div>
+
+        <div class="user-form-group">
+          <label for="userPassword">Password</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="userPassword" 
+              placeholder="••••••••••••" 
+              required
+              autocomplete="current-password"
+              value="password123"
+            >
+          </div>
+        </div>
+
+        <div class="user-actions-row">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+            <input type="checkbox" id="rememberUser" checked style="accent-color: #059669;">
+            <span>Remember me</span>
+          </label>
+          <a href="#" id="forgotPasswordLink" style="color:#059669; font-weight:600; text-decoration:none;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-user-submit" id="userSubmitBtn">
+          <span>Sign In to Account</span>
+        </button>
+
+      </form>
+
+      <!-- Quick Demo Credentials Box -->
+      <div class="demo-fill-box" style="background:#f1f5f9; border-color:#cbd5e1; color:#475569; margin-top:18px;">
+        <div>
+          <strong style="color:#0f172a; display:block;">Member Demo Account</strong>
+          <span>customer@world.org / password123</span>
+        </div>
+        <button type="button" class="btn-quick-fill" style="background:#e2e8f0; color:#0f172a; border-color:#cbd5e1;" onclick="quickFillCustomer()">Autofill</button>
+      </div>
+
+      <div class="auth-switch-footer">
+        <span>Don't have an account yet?</span>
+        <a href="user-signup.html">Create an Account</a>
+      </div>
+
+    </div>
+
+    <!-- Public Links -->
+    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #64748b;">
+      <a href="index.html" style="color: #64748b; text-decoration: none;">&larr; Back to Africa &amp; The World</a>
+    </div>
+  </div>
+
+  <script>
+    function quickFillCustomer() {
+      document.getElementById('userEmail').value = 'customer@world.org';
+      document.getElementById('userPassword').value = 'password123';
+    }
+  </script>
+
+  <!-- Firebase Auth Module Integration -->
+  <script type="module">
+    import { 
+      signInWithGoogle, 
+      signInWithEmail, 
+      resetPassword,
+      saveUserSession
+    } from "./firebase-auth.js";
+
+    const alertBox = document.getElementById('authAlert');
+    const submitBtn = document.getElementById('userSubmitBtn');
+    const googleBtn = document.getElementById('googleSignInBtn');
+    const form = document.getElementById('userLoginForm');
+    const forgotLink = document.getElementById('forgotPasswordLink');
+
+    function showAlert(msg, isError = true) {
+      alertBox.textContent = msg;
+      alertBox.style.display = 'block';
+      alertBox.style.background = isError ? '#fef2f2' : '#ecfdf5';
+      alertBox.style.color = isError ? '#b91c1c' : '#047857';
+      alertBox.style.borderColor = isError ? '#fecaca' : '#a7f3d0';
+    }
+
+    // Google Sign-In via Firebase
+    googleBtn.addEventListener('click', async () => {
+      googleBtn.disabled = true;
+      googleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting to Google...';
+      alertBox.style.display = 'none';
+
+      const result = await signInWithGoogle();
+      if (result.success) {
+        try {
+          sessionStorage.setItem("africa_world_welcome_event", JSON.stringify({
+            type: "login",
+            name: result.user?.displayName || "Traveler",
+            email: result.user?.email || ""
+          }));
+        } catch(e) {}
+        window.location.href = 'user-dashboard.html';
+      } else {
+        googleBtn.disabled = false;
+        googleBtn.innerHTML = '<i class="fab fa-google" style="color: #ea4335;"></i> <span>Sign in with Google</span>';
+        
+        if (result.code === 'auth/unauthorized-domain' || (result.error && result.error.includes('unauthorized-domain'))) {
+          const dom = result.currentDomain || window.location.hostname || 'localhost';
+          alertBox.style.display = 'block';
+          alertBox.style.background = '#fef2f2';
+          alertBox.style.color = '#1f2937';
+          alertBox.style.borderColor = '#fecaca';
+          alertBox.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px; color:#b91c1c; font-weight:700; margin-bottom:6px;">
+              <i class="fas fa-triangle-exclamation"></i>
+              <span>Firebase: Error (auth/unauthorized-domain)</span>
+            </div>
+            <p style="font-size:12px; margin:0 0 8px 0; color:#374151; line-height:1.4;">
+              Firebase blocks Google Sign-In popups until your current domain (<strong>${dom}</strong>) is added to your authorized domains in Firebase Console.
+            </p>
+            <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <code style="font-size:12px; color:#059669; font-weight:700;">${dom}</code>
+              <button type="button" onclick="navigator.clipboard.writeText('${dom}'); alert('Domain ${dom} copied to clipboard!');" style="background:#059669; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Copy Domain</button>
+            </div>
+            <div style="font-size:11.5px; color:#475569; margin-bottom:10px; line-height:1.4;">
+              <strong>How to fix in 1 minute:</strong><br>
+              1. Open <a href="https://console.firebase.google.com/project/africaworld-849e1/authentication/settings" target="_blank" style="color:#059669; font-weight:700; text-decoration:underline;">Firebase Console &rarr; Auth Settings</a><br>
+              2. Scroll down to <strong>Authorized domains</strong> and click <strong>Add domain</strong>.<br>
+              3. Paste <code>${dom}</code> and click <strong>Save</strong>!
+            </div>
+            <div style="border-top:1px dashed #cbd5e1; padding-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11.5px; color:#64748b;">Or test locally right now:</span>
+              <button type="button" onclick="quickFillCustomer(); document.getElementById('userLoginForm').dispatchEvent(new Event('submit'));" style="background:#0f172a; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; cursor:pointer; font-weight:600;">One-Click Continue</button>
+            </div>
+          `;
+        } else {
+          showAlert(result.error || 'Google sign-in could not be completed.');
+        }
+      }
+    });
+
+    // Email & Password Sign-In via Firebase
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('userEmail').value.trim();
+      const password = document.getElementById('userPassword').value;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in with Firebase...';
+      alertBox.style.display = 'none';
+
+      const result = await signInWithEmail(email, password);
+      if (result.success) {
+        try {
+          sessionStorage.setItem("africa_world_welcome_event", JSON.stringify({
+            type: "login",
+            name: result.user?.displayName || email.split('@')[0] || "Traveler",
+            email: result.user?.email || email
+          }));
+        } catch(e) {}
+        window.location.href = 'user-dashboard.html';
+      } else {
+        // Fallback for demo credentials if Firebase user has not been seeded yet in the new project
+        if (email === 'customer@world.org' && password === 'password123') {
+          saveUserSession({
+            uid: 'demo_customer_01',
+            displayName: 'Demo Traveler',
+            email: email,
+            photoURL: 'https://ui-avatars.com/api/?name=Demo+Traveler&background=059669&color=fff',
+            providerData: [{ providerId: 'password' }]
+          });
+          try {
+            sessionStorage.setItem("africa_world_welcome_event", JSON.stringify({
+              type: "login",
+              name: 'Demo Traveler',
+              email: email
+            }));
+          } catch(e) {}
+          window.location.href = 'user-dashboard.html';
+          return;
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Sign In to Account</span>';
+        showAlert(result.error || 'Authentication failed. Please verify credentials.');
+      }
+    });
+
+    // Forgot Password
+    forgotLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('userEmail').value.trim();
+      if (!email) {
+        showAlert('Please enter your email address first, then click "Forgot password?".');
+        return;
+      }
+      const res = await resetPassword(email);
+      if (res.success) {
+        showAlert('Password reset link sent to ' + email + '. Please check your inbox.', false);
+      } else {
+        showAlert(res.error || 'Could not send reset email. Ensure the email is registered.');
+      }
+    });
+  </script>
+</body>
+</html>

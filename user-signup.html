@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Community | Africa &amp; The World</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Auth Stylesheet -->
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body class="user-auth-body">
+
+  <div class="user-login-wrapper">
+    <div class="user-card">
+      
+      <!-- Brand Header -->
+      <div class="user-brand-head">
+        <a href="index.html" class="user-brand-logo">
+          <i class="fas fa-globe-africa"></i>
+          <span>Africa<span style="color:#059669;">World</span></span>
+        </a>
+        <h1 class="user-brand-title">Create Your Account</h1>
+        <p class="user-brand-sub">Join thousands celebrating African heritage, art, history, and literature</p>
+      </div>
+
+      <!-- Social Signup Buttons (Firebase Google Auth) -->
+      <div class="social-buttons-row">
+        <button type="button" class="btn-social" id="googleSignUpBtn" style="flex:1;">
+          <i class="fab fa-google" style="color: #ea4335;"></i>
+          <span>Sign up with Google</span>
+        </button>
+      </div>
+
+      <div class="social-divider">
+        <span>or register with email</span>
+      </div>
+
+      <!-- Alert Box -->
+      <div id="signupAlert" style="display:none; padding:10px 14px; margin-bottom:14px; border-radius:8px; font-size:13px; font-weight:500; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;">
+      </div>
+
+      <!-- User Signup Form -->
+      <form id="userSignupForm">
+        
+        <div class="user-form-group">
+          <label for="userName">Full Name</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-user"></i>
+            <input 
+              type="text" 
+              id="userName" 
+              placeholder="e.g. Amara Okafor" 
+              required
+              autocomplete="name"
+            >
+          </div>
+        </div>
+
+        <div class="user-form-group">
+          <label for="userEmail">Email Address</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input 
+              type="email" 
+              id="userEmail" 
+              placeholder="amara@example.com" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <div class="user-form-group">
+          <label for="userPassword">Create Password</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="userPassword" 
+              placeholder="At least 6-8 characters" 
+              required
+              autocomplete="new-password"
+            >
+          </div>
+          <!-- Live strength meter -->
+          <div class="strength-meter-bar">
+            <div class="strength-meter-fill" id="strengthMeter"></div>
+          </div>
+          <span id="strengthText" style="font-size:11px; color:#64748b; margin-top:2px;">Password strength</span>
+        </div>
+
+        <div class="user-form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="user-input-wrap">
+            <i class="fas fa-shield-check"></i>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              placeholder="Repeat password" 
+              required
+              autocomplete="new-password"
+            >
+          </div>
+        </div>
+
+        <div style="margin: 16px 0; font-size: 12.5px; color: #475569; display: flex; flex-direction: column; gap: 8px;">
+          <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+            <input type="checkbox" required checked style="margin-top:2px; accent-color: #059669;">
+            <span>I agree to the <a href="#" style="color:#059669; text-decoration:none; font-weight:600;">Terms of Service</a> &amp; <a href="#" style="color:#059669; text-decoration:none; font-weight:600;">Privacy Policy</a>.</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" checked style="accent-color: #059669;">
+            <span>Send me curated African heritage dispatches &amp; expedition updates.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-user-submit" id="signupSubmitBtn">
+          <span>Create Account via Firebase</span>
+        </button>
+
+      </form>
+
+      <div class="auth-switch-footer">
+        <span>Already have an account?</span>
+        <a href="user-login.html">Sign In here</a>
+      </div>
+
+    </div>
+
+    <!-- Public link in footer -->
+    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #64748b;">
+      <a href="index.html" style="color: #64748b; text-decoration: none;">&larr; Back to Africa &amp; The World Homepage</a>
+    </div>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById('userPassword');
+    const strengthMeter = document.getElementById('strengthMeter');
+    const strengthText = document.getElementById('strengthText');
+
+    passwordInput.addEventListener('input', function() {
+      const val = passwordInput.value;
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      if (val.length === 0) {
+        strengthMeter.style.width = '0%';
+        strengthText.textContent = 'Password strength';
+      } else if (score <= 1) {
+        strengthMeter.style.width = '25%';
+        strengthMeter.style.backgroundColor = '#ef4444';
+        strengthText.textContent = 'Weak password';
+        strengthText.style.color = '#ef4444';
+      } else if (score === 2) {
+        strengthMeter.style.width = '50%';
+        strengthMeter.style.backgroundColor = '#f59e0b';
+        strengthText.textContent = 'Fair password';
+        strengthText.style.color = '#f59e0b';
+      } else if (score === 3) {
+        strengthMeter.style.width = '75%';
+        strengthMeter.style.backgroundColor = '#3b82f6';
+        strengthText.textContent = 'Good password';
+        strengthText.style.color = '#3b82f6';
+      } else {
+        strengthMeter.style.width = '100%';
+        strengthMeter.style.backgroundColor = '#10b981';
+        strengthText.textContent = 'Strong password!';
+        strengthText.style.color = '#10b981';
+      }
+    });
+  </script>
+
+  <!-- Firebase Registration Module -->
+  <script type="module">
+    import { signInWithGoogle, signUpWithEmail } from "./firebase-auth.js";
+
+    const alertBox = document.getElementById('signupAlert');
+    const form = document.getElementById('userSignupForm');
+    const btn = document.getElementById('signupSubmitBtn');
+    const googleBtn = document.getElementById('googleSignUpBtn');
+
+    function showAlert(msg) {
+      alertBox.textContent = msg;
+      alertBox.style.display = 'block';
+    }
+
+    // Google Sign-up
+    googleBtn.addEventListener('click', async () => {
+      googleBtn.disabled = true;
+      googleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting to Google...';
+      alertBox.style.display = 'none';
+
+      const result = await signInWithGoogle();
+      if (result.success) {
+        try {
+          sessionStorage.setItem("africa_world_welcome_event", JSON.stringify({
+            type: "signup",
+            name: result.user?.displayName || "Traveler",
+            email: result.user?.email || ""
+          }));
+        } catch(e) {}
+        window.location.href = 'user-dashboard.html';
+      } else {
+        googleBtn.disabled = false;
+        googleBtn.innerHTML = '<i class="fab fa-google" style="color: #ea4335;"></i> <span>Sign up with Google</span>';
+        if (result.code === 'auth/unauthorized-domain' || (result.error && result.error.includes('unauthorized-domain'))) {
+          const dom = result.currentDomain || window.location.hostname || 'localhost';
+          alertBox.style.display = 'block';
+          alertBox.style.background = '#fef2f2';
+          alertBox.style.color = '#1f2937';
+          alertBox.style.borderColor = '#fecaca';
+          alertBox.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px; color:#b91c1c; font-weight:700; margin-bottom:6px;">
+              <i class="fas fa-triangle-exclamation"></i>
+              <span>Firebase: Error (auth/unauthorized-domain)</span>
+            </div>
+            <p style="font-size:12px; margin:0 0 8px 0; color:#374151; line-height:1.4;">
+              Firebase blocks Google Sign-In popups until your current domain (<strong>${dom}</strong>) is added to your authorized domains in Firebase Console.
+            </p>
+            <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <code style="font-size:12px; color:#059669; font-weight:700;">${dom}</code>
+              <button type="button" onclick="navigator.clipboard.writeText('${dom}'); alert('Domain ${dom} copied to clipboard!');" style="background:#059669; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Copy Domain</button>
+            </div>
+            <div style="font-size:11.5px; color:#475569; margin-bottom:10px; line-height:1.4;">
+              <strong>How to fix in 1 minute:</strong><br>
+              1. Open <a href="https://console.firebase.google.com/project/africaworld-849e1/authentication/settings" target="_blank" style="color:#059669; font-weight:700; text-decoration:underline;">Firebase Console &rarr; Auth Settings</a><br>
+              2. Scroll down to <strong>Authorized domains</strong> and click <strong>Add domain</strong>.<br>
+              3. Paste <code>${dom}</code> and click <strong>Save</strong>!
+            </div>
+            <div style="border-top:1px dashed #cbd5e1; padding-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11.5px; color:#64748b;">Or register with email below:</span>
+              <button type="button" onclick="document.getElementById('userName').focus();" style="background:#0f172a; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; cursor:pointer; font-weight:600;">Use Email Form</button>
+            </div>
+          `;
+        } else {
+          showAlert(result.error || 'Google signup failed. Please try with email below.');
+        }
+      }
+    });
+
+    // Email & Password Signup
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = document.getElementById('userName').value.trim();
+      const email = document.getElementById('userEmail').value.trim();
+      const pass = document.getElementById('userPassword').value;
+      const confirmPass = document.getElementById('confirmPassword').value;
+
+      if (pass !== confirmPass) {
+        showAlert("Passwords do not match. Please re-enter.");
+        return;
+      }
+
+      if (pass.length < 6) {
+        showAlert("Password must be at least 6 characters long.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Firebase account...';
+      alertBox.style.display = 'none';
+
+      const res = await signUpWithEmail(name, email, pass);
+      if (res.success) {
+        try {
+          sessionStorage.setItem("africa_world_welcome_event", JSON.stringify({
+            type: "signup",
+            name: name || email.split("@")[0] || "Traveler",
+            email: email
+          }));
+        } catch(e) {}
+        window.location.href = 'user-dashboard.html';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Create Account via Firebase</span>';
+        showAlert(res.error || "Could not register account. Please verify details.");
+      }
+    });
+  </script>
+</body>
+</html>

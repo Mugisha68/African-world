@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Africa &amp; The World | Admin Console (Supabase)</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Auth Stylesheet -->
+  <link rel="stylesheet" href="auth.css">
+
+  <!-- Supabase JS Client v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-auth-body">
+
+  <div class="admin-login-wrapper">
+    <div class="admin-card">
+      
+      <!-- Brand & Security Header -->
+      <div class="admin-logo-head">
+        <div class="admin-emblem" style="background:#044e3b; color:#34d399;">
+          <i class="fas fa-globe-africa"></i>
+        </div>
+        <h1 class="admin-portal-title">Africa &amp; The World</h1>
+        <p class="admin-portal-sub">Administrative Operations &amp; Cultural CMS Gateway</p>
+        <div class="security-badge" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3);">
+          <i class="fas fa-database"></i>
+          <span>Authenticated via Supabase Enterprise Gateway</span>
+        </div>
+      </div>
+
+      <!-- Error / Notification Box -->
+      <div id="adminAuthAlert" style="display:none; padding:10px 14px; margin-bottom:14px; border-radius:8px; font-size:13px; font-weight:500; background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;">
+      </div>
+
+      <!-- Admin Login Form -->
+      <form id="adminLoginForm">
+        
+        <div class="admin-form-group">
+          <label for="adminEmail">Administrator / Curator Email</label>
+          <div class="admin-input-wrap">
+            <i class="fas fa-user-shield"></i>
+            <input 
+              type="email" 
+              id="adminEmail" 
+              placeholder="e.g. tony.robert@africaworld.org" 
+              required
+              autocomplete="email"
+              value="tony.robert@africaworld.org"
+            >
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="adminPassword">Administrative Passcode</label>
+          <div class="admin-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="adminPassword" 
+              placeholder="••••••••••••" 
+              required
+              autocomplete="current-password"
+              value="admin123456"
+            >
+          </div>
+        </div>
+
+        <div class="admin-actions-row">
+          <label>
+            <input type="checkbox" id="rememberAdmin" checked style="accent-color: #10b981;">
+            <span>Keep session active (30 days)</span>
+          </label>
+          <a href="#" onclick="alert('Password reset link dispatched to security supervisor.'); return false;" style="color:#34d399; text-decoration:none;">Forgot passcode?</a>
+        </div>
+
+        <button type="submit" class="btn-admin-submit" id="adminSubmitBtn">
+          <span>Authenticate with Supabase</span>
+          <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+        </button>
+
+      </form>
+
+      <!-- Quick Demo Credentials Box -->
+      <div class="demo-fill-box" style="background:#07241c; border-color:rgba(16, 185, 129, 0.3);">
+        <div>
+          <strong style="color:#ffffff; display:block;">Chief Administrator</strong>
+          <span style="color:#94a3b8;">tony.robert@africaworld.org / admin123456</span>
+        </div>
+        <button type="button" class="btn-quick-fill" onclick="quickFillAdmin()">Autofill</button>
+      </div>
+
+      <!-- Supabase Connection Pill -->
+      <div style="margin-top:14px; text-align:center; font-size:11px; color:#64748b; display:flex; align-items:center; justify-content:center; gap:6px;">
+        <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#10b981;"></span>
+        <span>Supabase RLS Active &bull; Key: <code>sb_publishable_tYQL...</code></span>
+      </div>
+
+    </div>
+
+    <!-- Discreet link to public site in footer -->
+    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #64748b;">
+      <a href="index.html" style="color: #94a3b8; text-decoration: none;">&larr; Return to Africa &amp; The World Public Website</a>
+      <span style="margin: 0 8px;">&bull;</span>
+      <a href="user-login.html" style="color: #94a3b8; text-decoration: none;">Go to Traveler Portal (Firebase) &rarr;</a>
+    </div>
+  </div>
+
+  <script>
+    function quickFillAdmin() {
+      document.getElementById('adminEmail').value = 'tony.robert@africaworld.org';
+      document.getElementById('adminPassword').value = 'admin123456';
+    }
+  </script>
+
+  <!-- Supabase Admin Controller -->
+  <script type="module">
+    import { adminLogin } from "./supabase-admin.js";
+
+    const alertBox = document.getElementById('adminAuthAlert');
+    const form = document.getElementById('adminLoginForm');
+    const btn = document.getElementById('adminSubmitBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating with Supabase...';
+      alertBox.style.display = 'none';
+
+      const res = await adminLogin(email, password);
+
+      if (res.success) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Access Granted! Entering Portal...';
+        setTimeout(() => {
+          window.location.href = 'admin-dashboard.html';
+        }, 500);
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Authenticate with Supabase</span> <i class="fas fa-arrow-right" style="margin-left:8px;"></i>';
+        alertBox.textContent = res.error || "Authentication failed. Please verify credentials.";
+        alertBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

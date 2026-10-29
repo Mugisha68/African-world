@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Africa &amp; The World | Curator &amp; Operations Portal</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Chart.js 4.5.0 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0"></script>
+  
+  <!-- Supabase JS Client v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Admin Dashboard Styles -->
+  <link rel="stylesheet" href="admin-dashboard.css">
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('admin_portal_theme') === 'white') {
+          document.documentElement.classList.add('white-mode');
+        }
+      } catch(e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <!-- Logo & Collapse -->
+    <div class="sidebar-header">
+      <a href="admin-dashboard.html" class="logo-wrapper">
+        <div class="logo-icon" style="background:rgba(16, 185, 129, 0.2); color:#34d399;">
+          <i class="fas fa-globe-africa"></i>
+        </div>
+        <span class="logo-text">Africa<span style="color:#34d399;">World</span></span>
+      </a>
+      <button class="collapse-btn" id="collapseSidebarBtn" title="Toggle Sidebar">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+
+    <!-- Quick Search -->
+    <div class="sidebar-search">
+      <i class="fas fa-magnifying-glass search-icon"></i>
+      <input type="text" id="sidebarSearchInput" placeholder="Search portal &amp; exhibits" autocomplete="off">
+      <span class="shortcut-badge">⌘ F</span>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="nav-section">
+      <div class="nav-section-title">Main Menu</div>
+      <ul class="nav-list">
+        <li class="nav-item active">
+          <button type="button" class="nav-link" data-page="dashboard" data-title="Dashboard" data-subtitle="Welcome back Tony">
+            <div class="nav-link-left">
+              <i class="fas fa-house"></i>
+              <span>Dashboard</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="products" data-title="Exhibits &amp; Content (CMS)" data-subtitle="Manage website articles, literature archives, images &amp; text narratives">
+            <div class="nav-link-left">
+              <i class="fas fa-feather-pointed"></i>
+              <span>Exhibits &amp; Content</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="videos" data-title="Documentary Videos CMS" data-subtitle="Add, edit and manage documentary films for the scrolling video showcase">
+            <div class="nav-link-left">
+              <i class="fas fa-video"></i>
+              <span>Documentary Videos</span>
+            </div>
+            <span class="badge-count emerald" id="videosNavBadge">9</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="order" data-title="AI Bookings &amp; Expeditions" data-subtitle="Track cultural tours, safaris &amp; services booked by users via Afrimax AI">
+            <div class="nav-link-left">
+              <i class="fas fa-route"></i>
+              <span>AI Bookings</span>
+            </div>
+            <span class="badge-count emerald" id="aiBookingsBadge">4</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="customer" data-title="Members &amp; Travelers" data-subtitle="CRM directory of registered travelers, cultural patrons &amp; researchers">
+            <div class="nav-link-left">
+              <i class="fas fa-user-group"></i>
+              <span>Travelers &amp; Members</span>
+            </div>
+            <span class="badge-count emerald" id="membersNavBadge">3</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="chat" data-title="Inquiries &amp; Live Chat" data-subtitle="Real-time traveler consultations, AI booking inquiries &amp; support">
+            <div class="nav-link-left">
+              <i class="fas fa-comment-dots"></i>
+              <span>Chat &amp; Inquiries</span>
+            </div>
+            <span class="badge-count emerald">10</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Other Menu -->
+    <div class="nav-section">
+      <div class="nav-section-title">Other</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="email" data-title="Notifications Hub" data-subtitle="Operations alerts, traveler messages &amp; system notifications">
+            <div class="nav-link-left">
+              <i class="fas fa-bell"></i>
+              <span>Notifications</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="analytics" data-title="Regional Reach &amp; Analytics" data-subtitle="Visitor telemetry across 54 African countries and civilization interests">
+            <div class="nav-link-left">
+              <i class="fas fa-chart-line"></i>
+              <span>Analytics</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="integration" data-title="Cloud &amp; AI Integrations" data-subtitle="Supabase database/storage, Firebase user auth, Groq &amp; Gemini AI engines">
+            <div class="nav-link-left">
+              <i class="fas fa-cloud"></i>
+              <span>Integration</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="performance" data-title="System Infrastructure" data-subtitle="Supabase API query latency, edge caching, and AI response times">
+            <div class="nav-link-left">
+              <i class="fas fa-server"></i>
+              <span>Performance</span>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Account Menu -->
+    <div class="nav-section">
+      <div class="nav-section-title">Account</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="help" data-title="Curator Documentation" data-subtitle="Portal handbook, media upload specs &amp; AI booking protocols">
+            <div class="nav-link-left">
+              <i class="fas fa-circle-question"></i>
+              <span>Help Center</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" data-page="settings" data-title="Portal &amp; Supabase Settings" data-subtitle="Configure Supabase keys, API endpoints, Firebase sync &amp; admin profile">
+            <div class="nav-link-left">
+              <i class="fas fa-gear"></i>
+              <span>Settings</span>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- User Profile Card -->
+    <div class="sidebar-footer">
+      <div class="user-profile-card">
+        <div class="user-info">
+          <img src="images/k.jpg" alt="Tony Robert" class="user-avatar" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'">
+          <div class="user-details">
+            <span class="user-name user-name-display">Tony Robert</span>
+            <span class="user-role">Administrator</span>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="handleAdminLogout()" title="Logout from Supabase Admin">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ================= MAIN CONTENT AREA ================= -->
+  <main class="main-wrapper">
+    
+    <!-- Top Header -->
+    <header class="top-header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="mobile-sidebar-toggle-btn" id="mobileSidebarToggleBtn" title="Open Navigation Menu" type="button">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-title-block">
+          <h1 id="currentPageTitle">Dashboard</h1>
+          <p id="currentPageSubtitle">Welcome back Tony</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Live Database Sync Action -->
+        <button class="btn-upgrade" id="topSyncSupabaseBtn" title="Sync live Supabase cloud database" style="background:#059669; color:#fff; border:none; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px; cursor:pointer;">
+          <i class="fas fa-arrows-rotate"></i>
+          <span>Sync Supabase</span>
+        </button>
+
+        <!-- Portal White / Dark Mode Toggle -->
+        <button class="icon-btn" id="adminThemeToggleBtn" title="Switch Portal Theme (White / Emerald Dark Mode)" type="button" style="cursor:pointer;">
+          <i class="fas fa-sun"></i>
+        </button>
+
+        <!-- Notification Bell & Center -->
+        <div class="notification-wrapper">
+          <button class="icon-btn" id="adminNotifBellBtn" title="Operations &amp; User Notifications" type="button">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge" id="adminNotifBadge">0</span>
+          </button>
+          
+          <!-- Dropdown Panel -->
+          <div class="notification-dropdown" id="adminNotifDropdown">
+            <div class="notif-dropdown-header">
+              <div style="font-weight:700; font-size:13px; color:#0f172a;"><i class="fas fa-bolt" style="color:#10b981; margin-right:5px;"></i> Operations &amp; User Alerts</div>
+              <button type="button" id="clearNotifsBtn" class="notif-clear-btn">Mark All Read</button>
+            </div>
+            <div class="notif-dropdown-body" id="adminNotifList">
+              <!-- Rendered dynamically by admin-dashboard.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Button -->
+        <button class="btn-export" id="exportDataBtn">
+          <span>Export</span>
+          <i class="fas fa-arrow-up-right-from-square"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= VIEW 1: DASHBOARD ================= -->
+    <section class="page-view active" id="view-dashboard">
+      
+      <!-- 4 Top Stat Cards Row -->
+      <div class="stats-grid">
+        
+        <!-- Stat Card 1: TOTAL BOOKED TRIPS -->
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">TOTAL BOOKED TRIPS</span>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-route"></i>
+            </div>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-value" id="statTotalBookedTrips">14</span>
+            <span class="trend-badge positive" id="statBookedTripsTrend">
+              <i class="fas fa-arrow-up"></i> Active
+            </span>
+          </div>
+          <div class="stat-card-footer">
+            <span class="comparison-text" id="statBookedTripsComp">Verified cultural expeditions</span>
+            <i class="fas fa-arrow-right card-arrow"></i>
+          </div>
+        </div>
+
+        <!-- Stat Card 2: TOTAL REGISTERED USERS -->
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">TOTAL REGISTERED USERS</span>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-value" id="statTotalRegisteredUsers">3</span>
+            <span class="trend-badge positive" id="statUsersTrend">
+              <i class="fas fa-arrow-up"></i> Growing
+            </span>
+          </div>
+          <div class="stat-card-footer">
+            <span class="comparison-text" id="statUsersComp">Travelers &amp; research patrons</span>
+            <i class="fas fa-arrow-right card-arrow"></i>
+          </div>
+        </div>
+
+        <!-- Stat Card 3: ACTIVE TRAVELER INQUIRIES -->
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">ACTIVE TRAVELER INQUIRIES</span>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-value" id="statActiveInquiries">24</span>
+            <span class="trend-badge positive" id="statInquiriesTrend">
+              <i class="fas fa-bolt"></i> Live
+            </span>
+          </div>
+          <div class="stat-card-footer">
+            <span class="comparison-text" id="statInquiriesComp">Afrimax AI consultations active</span>
+            <i class="fas fa-arrow-right card-arrow"></i>
+          </div>
+        </div>
+
+        <!-- Stat Card 4: CURATED EXHIBITS & ARCHIVAL FILMS -->
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">CURATED EXHIBITS &amp; FILMS</span>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-feather-pointed"></i>
+            </div>
+          </div>
+          <div class="stat-card-body">
+            <span class="stat-value" id="statCuratedExhibitsCount">14</span>
+            <span class="trend-badge positive" id="statCuratedTrend">
+              <i class="fas fa-check"></i> Published
+            </span>
+          </div>
+          <div class="stat-card-footer">
+            <span class="comparison-text" id="statCuratedComp">5 Exhibits &bull; 9 Documentary Films</span>
+            <i class="fas fa-arrow-right card-arrow"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Middle Row: OVERALL EXPEDITIONS VOLUME -->
+      <div class="dashboard-grid-main">
+        
+        <!-- Left Big Card: EXPEDITIONS VOLUME -->
+        <div class="dash-card overall-sales-card">
+          <div class="overall-sales-header">
+            <div class="sales-title-block">
+              <div class="sub-label">PAN-AFRICAN CULTURAL EXPEDITIONS SCHEDULED</div>
+              <div class="sales-amount-row">
+                <span class="sales-amount" id="statOverallExpeditionsCount">14 Expeditions</span>
+                <span class="trend-badge positive" id="statOverallExpeditionsTrend">
+                  <i class="fas fa-compass"></i> Real Bookings
+                </span>
+              </div>
+            </div>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-map-location-dot"></i>
+            </div>
+          </div>
+
+          <!-- Controls: Dropdowns & Legend -->
+          <div class="overall-controls">
+            <div class="dropdown-group">
+              <select class="custom-select" id="salesPeriodSelect">
+                <option>Dashboard Overview</option>
+                <option>Quarterly Expeditions</option>
+                <option>Year-to-Date Impact</option>
+              </select>
+              <select class="custom-select" id="salesCategorySelect">
+                <option>All African Regions</option>
+                <option>East African Safaris</option>
+                <option>West African Heritage</option>
+                <option>North African Antiquities</option>
+                <option>Southern &amp; Central Culture</option>
+              </select>
+            </div>
+
+            <!-- Legend Pills -->
+            <div class="chart-legend-row">
+              <div class="legend-item">
+                <span class="legend-square emerald"></span>
+                <span>This Period</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-square teal"></span>
+                <span>Last Period</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Line Chart Canvas -->
+          <div class="chart-canvas-wrap">
+            <canvas id="overallSalesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right Card: CONVERSION RATE & PIE CHART -->
+        <div class="dash-card conversion-card">
+          <div class="conversion-header">
+            <div>
+              <div class="stat-label">TRAVELER ENGAGEMENT RATE</div>
+              <div class="sales-amount-row" style="margin-top: 4px;">
+                <span class="conversion-amount">4.55%</span>
+                <span class="trend-badge positive">
+                  <i class="fas fa-arrow-up"></i> 0.5%
+                </span>
+              </div>
+            </div>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-filter"></i>
+            </div>
+          </div>
+
+          <!-- Funnel Metrics -->
+          <div class="funnel-list">
+            <div class="funnel-item">
+              <div class="funnel-meta">
+                <span class="funnel-name">Itinerary Inquiries</span>
+                <span class="funnel-count">6,545</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill" style="width: 78%;"></div>
+              </div>
+              <span class="funnel-pct">15%</span>
+            </div>
+
+            <div class="funnel-item">
+              <div class="funnel-meta">
+                <span class="funnel-name">AI Trips Planned</span>
+                <span class="funnel-count">3,491</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill" style="width: 52%;"></div>
+              </div>
+              <span class="funnel-pct">8%</span>
+            </div>
+
+            <div class="funnel-item">
+              <div class="funnel-meta">
+                <span class="funnel-name">Curator Consultations</span>
+                <span class="funnel-count">1,342</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill" style="width: 32%;"></div>
+              </div>
+              <span class="funnel-pct">4%</span>
+            </div>
+
+            <div class="funnel-item">
+              <div class="funnel-meta">
+                <span class="funnel-name">Confirmed Expeditions</span>
+                <span class="funnel-count">1,200</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div class="funnel-bar-fill" style="width: 24%;"></div>
+              </div>
+              <span class="funnel-pct">1.89%</span>
+            </div>
+          </div>
+
+          <!-- Embedded Pie Chart with Toggle (Destination Regions / Channels) -->
+          <div class="wine-pie-section">
+            <div class="pie-section-title">
+              <span id="pieSectionHeader">Regional Destinations</span>
+              <button class="pie-toggle-btn" id="pieToggleBtn" onclick="togglePieView()">
+                Switch to Channels
+              </button>
+            </div>
+            <div class="pie-canvas-wrap">
+              <canvas id="conversionPieChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Lower Row: ARCHIVE CLOUD + EXHIBITS LIST -->
+      <div class="dashboard-grid-lower">
+        
+        <!-- Left: PAN-AFRICAN HERITAGE NETWORK -->
+        <div class="upgrade-card" style="background:linear-gradient(135deg, #0b2921 0%, #064e3b 100%);">
+          <div>
+            <div class="upgrade-header">
+              <div>
+                <span class="upgrade-badge" style="background:#10b981; color:#ffffff;">SUPABASE CMS</span>
+                <h3 class="upgrade-title">Curator Archival Cloud</h3>
+              </div>
+              <button class="btn-upgrade" onclick="openAddExhibitModal()">+ Add Exhibit</button>
+            </div>
+
+            <p class="upgrade-desc">
+              Store high-resolution artifact images, historical narratives, and oral literature directly inside your Supabase media storage with RLS security policies.
+            </p>
+          </div>
+
+          <div class="upgrade-stats-row">
+            <div class="upgrade-stat-box">
+              <span class="stat-sub">54 Countries</span>
+              <span class="stat-main green">
+                <i class="fas fa-shield-halved"></i> 100% RLS
+              </span>
+            </div>
+            <div class="upgrade-stat-box">
+              <span class="stat-sub">AI Assistant</span>
+              <span class="stat-main">
+                <i class="fas fa-bolt" style="color:#d97706; font-size:14px;"></i> Live
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: EXHIBITS & ARTIFACTS LIST TABLE -->
+        <div class="dash-card product-card">
+          <div class="product-card-header">
+            <div class="product-title-group">
+              <h3>HERITAGE EXHIBITS &amp; CONTENT</h3>
+              <span class="count-pill" id="productTotalCount">5</span>
+              <span class="badge-micro-growth">+Supabase</span>
+            </div>
+            <div class="stat-icon-wrap mint">
+              <i class="fas fa-monument"></i>
+            </div>
+          </div>
+
+          <!-- Table Filter Bar -->
+          <div class="product-filter-bar">
+            <div class="table-search-box">
+              <i class="fas fa-magnifying-glass"></i>
+              <input type="text" id="tableSearchInput" placeholder="Search exhibits &amp; articles...">
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-refresh" id="refreshProductsBtn">
+                <i class="fas fa-arrows-rotate"></i>
+                <span>Sync Supabase</span>
+              </button>
+              <button class="btn-primary" onclick="openAddExhibitModal()" style="padding: 7px 12px; font-size:12px;">
+                <i class="fas fa-plus"></i> New Exhibit
+              </button>
+            </div>
+          </div>
+
+          <!-- Exhibit Table -->
+          <div class="table-responsive">
+            <table class="vizora-table">
+              <thead>
+                <tr>
+                  <th width="30"><input type="checkbox" id="selectAllProducts"></th>
+                  <th>Exhibit / Article</th>
+                  <th>Region</th>
+                  <th>Curator</th>
+                  <th>Reads</th>
+                  <th>Status</th>
+                  <th width="40">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productTableBody">
+                <!-- Rows injected dynamically via JS from Supabase -->
+              </tbody>
+            </table>
+          </div>
+          <div class="vizora-pagination" id="overviewExhibitsPagination"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= VIEW 2: EXHIBITS & CONTENT (CMS) ================= -->
+    <section class="page-view" id="view-products">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Website Content &amp; Media CMS</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Upload images, publish historical articles, edit texts, and manage public exhibitions</p>
+        </div>
+        <button class="btn-primary" onclick="openAddExhibitModal()">
+          <i class="fas fa-plus"></i> Add New Exhibit / Article
+        </button>
+      </div>
+
+      <div class="dash-card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+          <input type="text" id="cmsSearchInput" placeholder="Filter articles &amp; artifacts..." style="padding:8px 14px; border:1px solid #cbd5e1; border-radius:8px; width:280px;">
+          <div style="display:flex; gap:10px;">
+            <select class="custom-select" id="cmsCategoryFilter">
+              <option value="all">All Categories &amp; Visual Gallery</option>
+              <option value="countries">Countries (Gallery)</option>
+              <option value="culture">Culture (Gallery)</option>
+              <option value="food">Traditional Food (Gallery)</option>
+              <option value="clothing">Traditional Clothing (Gallery)</option>
+              <option value="museums">Museums (Gallery)</option>
+              <option value="Ancient Civilizations">Ancient Civilizations</option>
+              <option value="Textiles & Living Traditions">Textiles &amp; Traditions</option>
+              <option value="Heritage Sculptures">Heritage Sculptures</option>
+              <option value="Literature & Oral Epics">Literature &amp; Oral Epics</option>
+              <option value="Sacred Architecture">Sacred Architecture</option>
+            </select>
+            <button class="btn-secondary" onclick="renderCmsTable()"><i class="fas fa-filter"></i> Apply Filter</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="vizora-table">
+            <thead>
+              <tr>
+                <th width="70">Primary</th>
+                <th width="70">Hover Image</th>
+                <th>Title &amp; Subtitle / Synopsis</th>
+                <th>Classification</th>
+                <th>Region</th>
+                <th>Status</th>
+                <th width="110" style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cmsFullTableBody">
+              <!-- Rendered by admin-dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+        <div class="vizora-pagination" id="cmsPagination"></div>
+      </div>
+
+      <!-- Interactive Knowledge Stream Ticker CMS -->
+      <div class="dash-card" style="margin-top:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 style="font-size:16px; font-weight:700;"><i class="fas fa-compass" style="color:#059669;"></i> Interactive Knowledge Stream CMS</h3>
+            <p style="color:var(--text-muted); font-size:12.5px;">Manage continuous scrolling ticker topics shown across the user homepage</p>
+          </div>
+          <button class="btn-primary" onclick="window.openAddTickerModal()" style="font-size:12px; padding:6px 12px; cursor:pointer;">
+            <i class="fas fa-plus"></i> Add Ticker Topic
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="vizora-table" id="tickerCmsTable">
+            <thead>
+              <tr>
+                <th width="50">Icon</th>
+                <th>Topic Tag</th>
+                <th>Headline Text</th>
+                <th>Target Link</th>
+                <th width="100" style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tickerCmsTableBody">
+              <!-- Rendered by admin-dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+        <div id="tickerPagination" class="vizora-pagination"></div>
+      </div>
+
+      <!-- Hero Auto-Written (Typewriter) Phrases CMS -->
+      <div class="dash-card" style="margin-top:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 style="font-size:16px; font-weight:700;"><i class="fas fa-keyboard" style="color:#059669;"></i> Hero Auto-Written (Typewriter) Phrases CMS</h3>
+            <p style="color:var(--text-muted); font-size:12.5px;">Manage phrases that auto-write and rotate on the homepage hero title</p>
+          </div>
+          <button class="btn-primary" onclick="window.openAddTypewriterModal()" style="font-size:12px; padding:6px 12px; cursor:pointer;">
+            <i class="fas fa-plus"></i> Add Auto-Written Phrase
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="vizora-table" id="typewriterCmsTable">
+            <thead>
+              <tr>
+                <th width="60">#</th>
+                <th>Auto-Written Phrase Text</th>
+                <th width="100" style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="typewriterCmsTableBody">
+              <!-- Rendered by admin-dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+        <div id="typewriterPagination" class="vizora-pagination"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: AI BOOKINGS & EXPEDITIONS ================= -->
+    <section class="page-view" id="view-order">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">AI Service Bookings &amp; Expeditions Tracker</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Real-time management for travel itineraries, guided tours, and consultations booked via Afrimax AI</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-secondary" onclick="simulateNewAiBooking()"><i class="fas fa-robot"></i> Simulate AI Booking</button>
+          <button class="btn-primary" onclick="openAddBookingModal()"><i class="fas fa-plus"></i> Manual Booking</button>
+        </div>
+      </div>
+
+      <!-- Quick AI Stats -->
+      <div class="stats-grid" style="margin-bottom: 20px;">
+        <div class="stat-card">
+          <div class="stat-label">AI ASSISTED BOOKINGS</div>
+          <div class="stat-value" id="aiTotalBookingsCount" style="margin:6px 0; color:#10b981;">124</div>
+          <span class="trend-badge positive"><i class="fas fa-bolt"></i> 85% via Afrimax AI</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">CONFIRMED EXPEDITIONS</div>
+          <div class="stat-value" style="margin:6px 0;">89</div>
+          <span class="comparison-text">Scheduled for 2026/2027</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">NEEDS CURATOR REVIEW</div>
+          <div class="stat-value" style="margin:6px 0; color:#d97706;">28</div>
+          <span class="trend-badge positive">Custom itinerary requests</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">REGISTERED TRAVELERS</div>
+          <div class="stat-value" id="aiTotalTravelersCount" style="margin:6px 0; color:#059669;">3</div>
+          <span class="comparison-text">Enrolled in verified trips</span>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="table-responsive">
+          <table class="vizora-table">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Traveler &amp; Contact</th>
+                <th>Service / Destination</th>
+                <th>Channel</th>
+                <th>Travel Dates</th>
+                <th>Travelers</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+              <!-- Populated dynamically via JS from Supabase/storage -->
+            </tbody>
+          </table>
+        </div>
+        <div class="vizora-pagination" id="bookingsPagination"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: MEMBERS & TRAVELERS ================= -->
+    <section class="page-view" id="view-customer">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Community Directory &amp; Travelers CRM</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Manage registered members, research fellows, historians &amp; VIP cultural patrons with full modification access</p>
+        </div>
+        <button class="btn-primary" onclick="window.openAddMemberModal()">
+          <i class="fas fa-user-plus"></i> Add New Member
+        </button>
+      </div>
+
+      <div class="dash-card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+          <input type="text" id="memberSearchInput" oninput="window.membersCurrentPage = 1; window.renderMembersTable()" placeholder="Search members by name, email, or country..." style="padding:8px 14px; border:1px solid #cbd5e1; border-radius:8px; width:300px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <select class="custom-select" id="memberTierFilter" onchange="window.membersCurrentPage = 1; window.renderMembersTable()">
+              <option value="all">All Patron Tiers</option>
+              <option value="Heritage Patron">Heritage Patron</option>
+              <option value="Cultural Explorer">Cultural Explorer</option>
+              <option value="Heritage Explorer">Heritage Explorer</option>
+              <option value="Senior Historian">Senior Historian</option>
+              <option value="Royal Guardian">Royal Guardian</option>
+            </select>
+            <button class="btn-secondary" onclick="window.renderMembersTable()"><i class="fas fa-filter"></i> Filter</button>
+            <button class="btn-secondary" onclick="document.getElementById('memberTierFilter').value='all'; document.getElementById('memberSearchInput').value=''; window.membersCurrentPage = 1; window.renderMembersTable();" title="Reset all filters"><i class="fas fa-rotate-left"></i> Reset</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="vizora-table">
+            <thead>
+              <tr>
+                <th>Member Profile</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Expeditions Planned</th>
+                <th>Patron Tier</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="membersTableBody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="vizora-pagination" id="membersPagination"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW: DOCUMENTARY VIDEOS CMS ================= -->
+    <section class="page-view" id="view-videos">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Documentary Videos &amp; Archival Films CMS</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Add, edit and curate archival films in the sequential scrolling journeys across ancient Africa, slave trade memory, and anticolonial struggles</p>
+        </div>
+        <button class="btn-primary" onclick="window.openAddVideoModal()">
+          <i class="fas fa-plus"></i> Add Documentary Film
+        </button>
+      </div>
+
+      <div class="dash-card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+          <input type="text" id="videoSearchInput" placeholder="Filter films by title or historic era..." style="padding:8px 14px; border:1px solid #cbd5e1; border-radius:8px; width:280px;">
+          <div style="display:flex; gap:10px;">
+            <select class="custom-select" id="videoTrackFilter">
+              <option value="all">All Historical Tracks</option>
+              <option value="ancient">Ancient Empires &amp; Architecture</option>
+              <option value="slave-trade">The Slave Trades &amp; Freedom</option>
+              <option value="anticolonial">Anticolonial Wars &amp; Freedom</option>
+            </select>
+            <button class="btn-secondary" onclick="window.renderVideosTable()"><i class="fas fa-filter"></i> Apply Filter</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="vizora-table">
+            <thead>
+              <tr>
+                <th width="80">Thumbnail</th>
+                <th>Documentary Title &amp; Series Tag</th>
+                <th>Category Track</th>
+                <th>Historic Site / Subtitle</th>
+                <th>Streaming Link</th>
+                <th>Order</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="videosTableBody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="vizora-pagination" id="videosPagination"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 5: INQUIRIES & LIVE CHAT / TRAVELER DISPATCHES ================= -->
+    <section class="page-view" id="view-chat">
+      <div class="chat-layout">
+        <!-- Chat Contacts & Target Selector -->
+        <div class="chat-sidebar">
+          <div class="chat-recipient-wrapper" style="padding:14px; border-bottom:1px solid var(--card-border, #eef2f6);">
+            <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted, #64748b); margin-bottom:6px; display:block;">Dispatch Recipient Target</label>
+            <select class="custom-select" id="chatTargetSelector" style="width:100%; font-size:12.5px;">
+              <option value="all">📢 All Registered Travelers (Broadcast)</option>
+              <!-- Filled dynamically by admin-dashboard.js from registered members -->
+            </select>
+          </div>
+          <div class="chat-search-wrap">
+            <input type="text" id="chatSearchInput" placeholder="Filter travelers &amp; inquiries...">
+          </div>
+          <ul class="chat-list" id="chatContactsList">
+            <!-- Populated dynamically via JS -->
+          </ul>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div class="chat-window">
+          <div class="chat-header">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="chat-user-avatar" id="activeChatAvatar" style="width:38px; height:38px; border-radius:50%; background:#ea580c; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px;">
+                📢
+              </div>
+              <div>
+                <span id="activeChatUserName" style="font-weight:700; font-size:15px; color:var(--text-heading, #0f172a);">All Registered Travelers</span>
+                <div id="activeChatUserSub" style="font-size:11.5px; color:var(--text-muted, #64748b);">Global Broadcast &bull; Sent directly to every traveler portal</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="trend-badge positive" id="chatDeliveryBadge" style="font-size:11px;">
+                <i class="fas fa-satellite-dish"></i> Traveler Portal Sync Active
+              </span>
+            </div>
+          </div>
+
+          <div class="chat-body" id="chatBodyContainer">
+            <!-- Messages rendered dynamically -->
+          </div>
+
+          <!-- Notification & Advisory Dispatch Composer -->
+          <div class="chat-composer-wrapper" style="padding:16px; border-top:1px solid var(--card-border, #eef2f6);">
+            <div style="display:flex; gap:10px; margin-bottom:8px;">
+              <input type="text" id="chatSubjectInput" placeholder="Dispatch Title / Advisory Subject (e.g. Swahili Coast Route Confirmation)" style="flex:1; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:12.5px;">
+              <select id="chatTypeSelect" class="custom-select" style="font-size:12px; width:170px;">
+                <option value="direct">Traveler Advisory</option>
+                <option value="booking">Expedition Update</option>
+                <option value="urgent">Important Notice</option>
+              </select>
+            </div>
+            <div class="chat-input-bar">
+              <input type="text" id="chatMessageInput" placeholder="Type notification or advice for traveler (visible on user dashboard)...">
+              <button class="chat-send-btn" id="sendChatBtn" title="Send Notification to Traveler">
+                <i class="fas fa-paper-plane"></i>
+                <span style="font-size:12px; font-weight:600; margin-left:4px;">Send Dispatch</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 6: DISPATCHES & OPERATIONS NOTIFICATIONS HUB ================= -->
+    <section class="page-view" id="view-email">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Notifications Hub</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Manage real‑time operational alerts, traveler messages, and system notifications.</p>
+        </div>
+      </div>
+
+      <!-- Real Operational Notification Stats (NO US DOLLARS) -->
+      <div class="stats-grid" style="margin-bottom:20px;">
+        <div class="stat-card">
+          <div class="stat-label">TOTAL DISPATCHES &amp; ALERTS</div>
+          <div class="stat-value" id="emailStatTotalNotifs" style="margin:8px 0; color:#0f172a;">0</div>
+          <span class="trend-badge positive" id="emailStatTotalNotifsTrend"><i class="fas fa-bell"></i> Operational stream</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">UNREAD OPERATIONS ALERTS</div>
+          <div class="stat-value" id="emailStatUnreadNotifs" style="margin:8px 0; color:#ea580c;">0</div>
+          <span class="trend-badge" style="background:#ffedd5; color:#c2410c;" id="emailStatUnreadTrend">Requires curator review</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">TRAVELER DIRECT MESSAGES</div>
+          <div class="stat-value" id="emailStatDirectDispatches" style="margin:8px 0; color:#0284c7;">0</div>
+          <span class="trend-badge" style="background:#e0f2fe; color:#0369a1;"><i class="fas fa-paper-plane"></i> Sent to traveler portals</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">ACTIVE TRAVELER SUBSCRIBERS</div>
+          <div class="stat-value" id="emailStatActiveRecipients" style="margin:8px 0; color:#10b981;">0</div>
+          <span class="trend-badge positive"><i class="fas fa-users"></i> Registered patrons</span>
+        </div>
+      </div>
+
+      <!-- Interactive Dispatches & Notifications Log -->
+      <div class="dash-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="vizora-tab-btn active" data-filter="all">All Alerts (<span id="countFilterAll">0</span>)</button>
+            <button class="vizora-tab-btn" data-filter="unread">Unread Only (<span id="countFilterUnread">0</span>)</button>
+            <button class="vizora-tab-btn" data-filter="user">User Accounts (<span id="countFilterUser">0</span>)</button>
+            <button class="vizora-tab-btn" data-filter="booking">AI Bookings (<span id="countFilterBooking">0</span>)</button>
+            <button class="vizora-tab-btn" data-filter="dispatch">Traveler Dispatches (<span id="countFilterDispatch">0</span>)</button>
+          </div>
+          <input type="text" id="dispatchSearchInput" placeholder="Search dispatches &amp; alerts..." style="padding:7px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:12.5px; width:220px;">
+        </div>
+
+        <div class="table-responsive">
+          <table class="vizora-table" id="dispatchesTable">
+            <thead>
+              <tr>
+                <th width="40" style="text-align:center;">Status</th>
+                <th style="min-width:240px;">Alert / Dispatch Event</th>
+                <th style="min-width:130px;">Category</th>
+                <th style="min-width:160px;">Target / Recipient</th>
+                <th style="min-width:110px;">Time</th>
+                <th style="min-width:130px; text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dispatchesTableBody">
+              <!-- Rendered dynamically by admin-dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+        <div class="vizora-pagination" id="dispatchesPagination"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 7: ANALYTICS ================= -->
+    <section class="page-view" id="view-analytics">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Regional Analytics &amp; Civilization Telemetry</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Track visitor curiosity across Ancient Civilizations (Kush, Mali, Benin, Songhai, Aksum, Swahili)</p>
+        </div>
+      </div>
+
+      <div class="dash-card" style="margin-bottom: 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <h3 style="font-size:16px; font-weight:700;">Civilization Research Cohorts (Chart.js Line)</h3>
+            <span style="font-size:12px; color:var(--text-muted);">Cohort A (West Africa), Cohort B (East &amp; Horn of Africa), Cohort C (Nile &amp; Southern Africa)</span>
+          </div>
+          <span class="trend-badge positive"><i class="fas fa-check"></i> Supabase Stream Active</span>
+        </div>
+        <div style="height: 320px; width:100%; position:relative;">
+          <canvas id="analyticsMultiLineChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 8: INTEGRATION ================= -->
+    <section class="page-view" id="view-integration">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Connected Services &amp; Cloud Architecture</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Manage connected databases, authentication providers, and AI microservices</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+        
+        <!-- Supabase Card -->
+        <div class="dash-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <i class="fas fa-database" style="font-size:30px; color:#10b981;"></i>
+              <div>
+                <strong>Supabase Enterprise</strong>
+                <div style="font-size:11px; color:#10b981;">Connected (RLS Enabled)</div>
+              </div>
+            </div>
+            <span class="status-pill completed">Active</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px;">Admin authentication gateway, PostgreSQL tables, and image/media bucket.</p>
+          <div style="font-size:11px; font-family:monospace; color:#0f766e; background:#f0fdfa; padding:6px 10px; border-radius:6px;">
+            Key: sb_publishable_tYQL...
+          </div>
+        </div>
+
+        <!-- Firebase Card -->
+        <div class="dash-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <i class="fab fa-google" style="font-size:30px; color:#ea4335;"></i>
+              <div>
+                <strong>Firebase Client Auth</strong>
+                <div style="font-size:11px; color:#10b981;">Connected (User Side)</div>
+              </div>
+            </div>
+            <span class="status-pill completed">Active</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px;">Manages Google Sign-In and Email authentication for travelers &amp; customers.</p>
+          <div style="font-size:11px; font-family:monospace; color:#b91c1c; background:#fef2f2; padding:6px 10px; border-radius:6px;">
+            Project: africaworld-849e1
+          </div>
+        </div>
+
+        <!-- Groq & Gemini AI Card -->
+        <div class="dash-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <i class="fas fa-bolt" style="font-size:30px; color:#f59e0b;"></i>
+              <div>
+                <strong>Afrimax AI Assistant</strong>
+                <div style="font-size:11px; color:#10b981;">Online &amp; Booking Ready</div>
+              </div>
+            </div>
+            <span class="status-pill completed">Online</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px;">AI booking engine that constructs custom African itineraries and registers bookings.</p>
+          <div style="font-size:11px; font-family:monospace; color:#d97706; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+            Engine: Groq OSS 120B / Gemini
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= VIEW 9: PERFORMANCE ================= -->
+    <section class="page-view" id="view-performance">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Infrastructure &amp; Server Health</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Real-time Supabase query benchmarks, edge caching &amp; AI response times</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">SUPABASE UPTIME</div>
+          <div class="stat-value" style="margin:8px 0; color:#10b981;">99.99%</div>
+          <span class="comparison-text">Zero downtime in 60 days</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">DATABASE QUERY LATENCY</div>
+          <div class="stat-value" style="margin:8px 0;">32 ms</div>
+          <span class="trend-badge positive">Ultra-fast edge connection</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">AI ASSISTANT RESPONSE</div>
+          <div class="stat-value" style="margin:8px 0;">410 ms</div>
+          <span class="comparison-text">Average token delivery rate</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">MEDIA CACHE HIT RATIO</div>
+          <div class="stat-value" style="margin:8px 0;">96.4%</div>
+          <span class="trend-badge positive">Artifact images accelerated</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 10: HELP CENTER ================= -->
+    <section class="page-view" id="view-help">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Curator Handbook &amp; Documentation</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Guidelines on uploading exhibits, managing AI booking approvals &amp; Supabase database</p>
+        </div>
+        <button class="btn-primary" onclick="alert('Priority Ticket Form opened for curator staff.')">Open Support Ticket</button>
+      </div>
+
+      <div class="dash-card">
+        <h3 style="font-size:16px; margin-bottom:14px;">Curator Frequently Asked Questions</h3>
+        <details style="padding:12px; border-bottom:1px solid #f1f5f9; cursor:pointer;" open>
+          <summary style="font-weight:600; color:var(--text-main);">How does the AI Assistant book services for users?</summary>
+          <p style="margin-top:8px; font-size:13px; color:var(--text-muted);">
+            When a traveler asks Afrimax AI on the Trip Planner or website to book a tour (e.g. Serengeti Safari, Ashanti Kente workshop, Nile Cruise), the booking is recorded into Supabase and shows up under <strong>AI Bookings</strong>. As administrator, you can review, approve, or adjust the status.
+          </p>
+        </details>
+        <details style="padding:12px; border-bottom:1px solid #f1f5f9; cursor:pointer;">
+          <summary style="font-weight:600; color:var(--text-main);">How do I store new images and texts for the website?</summary>
+          <p style="margin-top:8px; font-size:13px; color:var(--text-muted);">
+            Navigate to <strong>Exhibits &amp; Content</strong> or click <strong>+ Add Exhibit</strong>. You can upload an image file directly (or paste an image URL), input the historical synopsis, assign a region and category, and hit Save.
+          </p>
+        </details>
+        <details style="padding:12px; cursor:pointer;">
+          <summary style="font-weight:600; color:var(--text-main);">How is authentication separated between Admin and Visitors?</summary>
+          <p style="margin-top:8px; font-size:13px; color:var(--text-muted);">
+            Travelers and public members sign in using <strong>Firebase Authentication</strong> (Google Sign-In &amp; Email). Administrators authenticate using <strong>Supabase</strong> with Row Level Security (RLS) policies.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 11: SETTINGS ================= -->
+    <section class="page-view" id="view-settings">
+      <div class="view-top-bar">
+        <div>
+          <h2 style="font-size:20px; font-weight:700;">Administrator Profile &amp; Security Credentials</h2>
+          <p style="color:var(--text-muted); font-size:13px;">Manage administrator display identity, curator editorial statements, and administrative passcodes</p>
+        </div>
+      </div>
+
+      <div class="dash-card" style="max-width:760px;">
+        <form id="adminSettingsForm" onsubmit="window.handleAdminSettingsSave(event); return false;">
+          <h3 style="font-size:15px; font-weight:700; color:var(--text-main); margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+            <i class="fas fa-user-shield" style="color:#059669; margin-right:6px;"></i> Curator Profile &amp; Identity
+          </h3>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Administrator Full Name</label>
+              <input type="text" id="settingAdminName" value="Tony Robert" required style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Administrator Email</label>
+              <input type="email" id="settingAdminEmail" value="tony.robert@africaworld.org" required style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Curator Administrative Role</label>
+              <input type="text" id="settingAdminRole" value="Lead Curator &amp; Administrator" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Avatar Image (URL or Upload)</label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="settingAdminAvatar" value="images/k.jpg" style="flex:1; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+                <label class="btn-secondary" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-size:12px; padding:8px 12px;">
+                  <i class="fas fa-upload"></i> Upload
+                  <input type="file" id="settingAdminAvatarFile" accept="image/*" style="display:none;">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:20px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Curator Statement &amp; Portal Texts</label>
+            <textarea id="settingAdminStatement" rows="3" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit;" placeholder="Curator mission statement, editorial guidelines and public messages...">Dedicated to the preservation, scholarly restitution, and public exhibition of African historical memory, ancient civilizations, and pan-African cultural literature.</textarea>
+          </div>
+
+          <h3 style="font-size:15px; font-weight:700; color:var(--text-main); margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+            <i class="fas fa-key" style="color:#059669; margin-right:6px;"></i> Administrator Passcode &amp; Credentials
+          </h3>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">New Administrator Passcode</label>
+              <input type="password" id="settingNewPassword" placeholder="Enter new passcode" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:6px;">Confirm New Passcode</label>
+              <input type="password" id="settingConfirmPassword" placeholder="Repeat new passcode" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+          </div>
+
+          <button type="submit" id="saveAdminSettingsBtn" class="btn-primary" style="padding:10px 20px; font-size:13.5px; font-weight:700;">
+            <i class="fas fa-check"></i> Update Admin Profile &amp; Passcode
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODAL: ADD / EDIT EXHIBIT & CONTENT (CMS) ================= -->
+  <div class="modal-overlay" id="addExhibitModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="exhibitModalTitle">Add New Exhibit / Article</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="addExhibitForm" onsubmit="window.handleExhibitFormSave(event); return false;">
+        <div class="modal-body">
+          <input type="hidden" id="exhibitEditId" value="">
+          
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Exhibit / Article Title *</label>
+            <input type="text" id="newExhibitTitle" placeholder="e.g. Great Zimbabwe Granite Stone Monoliths" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Category *</label>
+              <select class="custom-select" id="newExhibitCategory" style="width:100%;" required>
+                <option value="Visual Gallery">Visual Gallery</option>
+                <option value="Ancient Civilizations">Ancient Civilizations</option>
+                <option value="Heritage Sculptures">Heritage Sculptures</option>
+                <option value="Textiles & Living Traditions">Textiles &amp; Traditions</option>
+                <option value="Literature & Oral Epics">Literature &amp; Oral Epics</option>
+                <option value="Sacred Architecture">Sacred Architecture</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Gallery.html Classification</label>
+              <select class="custom-select" id="newExhibitGalleryCategory" style="width:100%;">
+                <option value="">General Exhibit / Not in Gallery</option>
+                <option value="countries">Countries (Gallery.html)</option>
+                <option value="culture">Culture (Gallery.html)</option>
+                <option value="food">Traditional Food (Gallery.html)</option>
+                <option value="clothing">Traditional Clothing (Gallery.html)</option>
+                <option value="museums">Museums (Gallery.html)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Region / Country *</label>
+              <input type="text" id="newExhibitRegion" placeholder="e.g. Southern Africa (Zimbabwe)" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Subtitle / Tagline (Gallery.html)</label>
+              <input type="text" id="newExhibitSubtitle" placeholder="e.g. East • Africa or Traditional Clothing • Rwanda" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+          </div>
+
+          <!-- Image Upload / URL with Live Preview -->
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Primary Exhibit Image (Upload or URL)</label>
+            <div style="display:flex; gap:10px; margin-bottom:8px;">
+              <input type="text" id="newExhibitImage" placeholder="Paste image URL (or upload below)" style="flex:1; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+              <label class="btn-secondary" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-size:12px; padding:8px 12px;">
+                <i class="fas fa-upload"></i> Upload
+                <input type="file" id="newExhibitFile" accept="image/*" style="display:none;">
+              </label>
+            </div>
+            <!-- Live Preview -->
+            <div id="imagePreviewContainer" class="modal-preview-box" style="display:none; margin-top:8px; border-radius:8px; padding:6px; text-align:center;">
+              <img id="imagePreview" src="" alt="Preview" style="max-height:120px; border-radius:6px; object-fit:cover;">
+            </div>
+          </div>
+
+          <!-- Hover Comparison Image (Before / After for Gallery.html) -->
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Hover Comparison Image (Before / Historical Photo for Gallery.html)</label>
+            <div style="display:flex; gap:10px; margin-bottom:8px;">
+              <input type="text" id="newExhibitHoverImage" placeholder="Optional: paste comparison image URL (or upload)" style="flex:1; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+              <label class="btn-secondary" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-size:12px; padding:8px 12px;">
+                <i class="fas fa-upload"></i> Upload
+                <input type="file" id="newExhibitHoverFile" accept="image/*" style="display:none;">
+              </label>
+            </div>
+            <div id="hoverImagePreviewContainer" class="modal-preview-box" style="display:none; margin-top:8px; border-radius:8px; padding:6px; text-align:center;">
+              <img id="hoverImagePreview" src="" alt="Hover Preview" style="max-height:120px; border-radius:6px; object-fit:cover;">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Historical Synopsis &amp; Narrative Text *</label>
+            <textarea id="newExhibitText" rows="3" placeholder="Enter the complete historical or cultural description..." required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit;"></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Curator Name</label>
+              <input type="text" id="newExhibitCurator" value="Tony Robert" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Publication Status</label>
+              <select class="custom-select" id="newExhibitStatus" style="width:100%;">
+                <option value="Published">Published (Live)</option>
+                <option value="Draft">Draft (Archived)</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="button" id="saveExhibitBtn" onclick="window.handleExhibitFormSave(event)" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Save to Supabase</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADD / EDIT TICKER TOPIC ================= -->
+  <div class="modal-overlay" id="addTickerModal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 id="tickerModalTitle">Add Knowledge Stream Ticker Topic</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="addTickerForm" onsubmit="window.handleTickerFormSave(event); return false;">
+        <div class="modal-body">
+          <input type="hidden" id="tickerEditId" value="">
+          
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Headline Text *</label>
+            <input type="text" id="newTickerText" placeholder="e.g. Swahili Coastal Maritime Trade &amp; Dhow Navigation" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Topic Tag *</label>
+              <input type="text" id="newTickerTag" placeholder="e.g. Ancient Civilizations" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">FontAwesome Icon</label>
+              <select class="custom-select" id="newTickerIcon" style="width:100%;">
+                <option value="fa-landmark">🏛️ Landmark</option>
+                <option value="fa-compass">🧭 Compass</option>
+                <option value="fa-crown">👑 Crown</option>
+                <option value="fa-shield-halved">🛡️ Shield</option>
+                <option value="fa-book-open">📖 Book</option>
+                <option value="fa-cube">🧊 Sculpture</option>
+                <option value="fa-ship">⛵ Ship</option>
+                <option value="fa-feather">🪶 Literature</option>
+                <option value="fa-images">🖼️ Visual Gallery</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Target URL Link *</label>
+            <input type="text" id="newTickerLink" placeholder="e.g. history.html or gallery.html" value="history.html" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="submit" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Save Topic</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADD / EDIT AUTO-WRITTEN PHRASE ================= -->
+  <div class="modal-overlay" id="addTypewriterModal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 id="typewriterModalTitle">Add Hero Auto-Written Phrase</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="addTypewriterForm" onsubmit="window.handleTypewriterFormSave(event); return false;">
+        <div class="modal-body">
+          <input type="hidden" id="typewriterEditIndex" value="">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Auto-Written Phrase Text *</label>
+            <input type="text" id="newTypewriterText" placeholder="e.g. Ancient Civilizations &amp; Heritage" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            <span style="font-size:11px; color:var(--text-muted); margin-top:4px; display:block;">This text will be dynamically typed on the homepage hero section.</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="submit" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Save Phrase</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: MEMBER / USER DETAILS & MODIFICATION ================= -->
+  <div class="modal-overlay" id="memberModal">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 id="memberModalTitle">Modify User Details</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="memberForm" onsubmit="window.handleMemberFormSave(event); return false;">
+        <div class="modal-body">
+          <input type="hidden" id="editMemberId" value="">
+          
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="editMemberName" placeholder="e.g. Dr. Kojo Boateng" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="editMemberEmail" placeholder="e.g. kojo@cambridge.edu" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Location (City / Country)</label>
+              <input type="text" id="editMemberLocation" placeholder="e.g. Accra, Ghana">
+            </div>
+            <div class="form-group">
+              <label>Patron Tier</label>
+              <select class="custom-select" id="editMemberTier">
+                <option value="Heritage Patron">Heritage Patron</option>
+                <option value="Cultural Explorer">Cultural Explorer</option>
+                <option value="Senior Historian">Senior Historian</option>
+                <option value="Royal Guardian">Royal Guardian</option>
+                <option value="Research Fellow">Research Fellow</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Account Status</label>
+              <select class="custom-select" id="editMemberStatus">
+                <option value="Active">Active</option>
+                <option value="Suspended">Suspended</option>
+                <option value="Pending Review">Pending Review</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Expeditions Completed</label>
+              <input type="number" id="editMemberExpeditions" min="0" value="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Total Contribution / Support ($)</label>
+            <input type="text" id="editMemberContributed" placeholder="$1,500.00">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="button" id="saveMemberBtn" onclick="window.handleMemberFormSave(event)" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Save User Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: DOCUMENTARY VIDEO CMS ================= -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 id="videoModalTitle">Add Documentary Film</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="videoForm" onsubmit="window.handleVideoFormSave(event); return false;">
+        <div class="modal-body">
+          <input type="hidden" id="editVideoId" value="">
+          
+          <div class="form-group">
+            <label>Historical Route / Track Category *</label>
+            <select class="custom-select" id="videoTrackSelect" required>
+              <option value="ancient">Ancient Empires &amp; Architecture (Nile, Ethiopia, Zimbabwe)</option>
+              <option value="slave-trade">The Slave Trades &amp; Freedom (Atlantic, Gorée, Haiti)</option>
+              <option value="anticolonial">Anticolonial Wars &amp; Freedom (Algiers, Congo, Frontline)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Documentary Film Title *</label>
+            <input type="text" id="videoTitleInput" placeholder="e.g. The Kingdom of Kush: Black Pharaohs" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Series Tag / Producer</label>
+              <input type="text" id="videoTagInput" placeholder="e.g. BBC • 4-Part Series • Free">
+            </div>
+            <div class="form-group">
+              <label>Sequence Number in Route</label>
+              <input type="number" id="videoNumInput" min="1" max="20" value="1" required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Historic Site / Place *</label>
+              <input type="text" id="videoPlaceInput" placeholder="e.g. Meroë Pyramids &amp; Upper Nile" required>
+            </div>
+            <div class="form-group">
+              <label>Historic Era Subtitle *</label>
+              <input type="text" id="videoSubInput" placeholder="e.g. Sudan • c. 300 BCE" required>
+            </div>
+          </div>
+
+          <!-- Thumbnail Image Upload / URL with Live Preview -->
+          <div class="form-group">
+            <label>Thumbnail Poster (URL or Upload)</label>
+            <div style="display:flex; gap:10px;">
+              <input type="text" id="videoImgInput" placeholder="Paste image URL (or upload)" style="flex:1;">
+              <label class="btn-secondary" style="cursor:pointer; display:flex; align-items:center; gap:6px; font-size:12px; padding:8px 12px;">
+                <i class="fas fa-upload"></i> Upload
+                <input type="file" id="videoFileInput" accept="image/*" style="display:none;">
+              </label>
+            </div>
+            <div id="videoImgPreviewContainer" class="modal-preview-box" style="display:none; margin-top:8px; border-radius:8px; padding:6px; text-align:center;">
+              <img id="videoImgPreview" src="" alt="Preview" style="max-height:100px; border-radius:6px; object-fit:cover;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Streaming / YouTube URL *</label>
+            <input type="url" id="videoYtInput" placeholder="https://www.youtube.com/watch?v=..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Documentary Synopsis &amp; Historical Notes *</label>
+            <textarea id="videoDescInput" rows="3" placeholder="Enter historical synopsis of this archival screening..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="button" id="saveVideoBtn" onclick="window.handleVideoFormSave(event)" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Save Video to CMS</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: MANUAL AI BOOKING ================= -->
+  <div class="modal-overlay" id="addBookingModal">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3>Create / Record Service Booking</h3>
+        <button type="button" class="modal-close-btn close-modal" onclick="window.closeAllModals(event)"><i class="fas fa-xmark"></i></button>
+      </div>
+      <form id="addBookingForm" onsubmit="window.handleBookingFormSave(event); return false;">
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Traveler Full Name *</label>
+            <input type="text" id="bookTravelerName" placeholder="e.g. Maya Angelou Research Trust" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Traveler Contact Email *</label>
+            <input type="email" id="bookTravelerEmail" placeholder="e.g. maya@research.org" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Service Title / Expedition *</label>
+            <input type="text" id="bookServiceTitle" placeholder="e.g. 5-Day Ouidah &amp; Dahomey Kingdom Memorial" required style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Destination</label>
+              <input type="text" id="bookDestination" placeholder="e.g. Benin &amp; Togo" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Party Size (Travelers)</label>
+              <input type="number" id="bookPartySize" min="1" value="2" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px;">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">AI Dialogue &amp; Booking Notes</label>
+            <textarea id="bookNotes" rows="3" placeholder="Notes from AI dialogue, dietary requirements, or itinerary focus..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; font-family:inherit;"></textarea>
+          </div>
+          <div class="form-group">
+            <label style="font-weight:600; font-size:13px; display:block; margin-bottom:4px;">Booking Channel</label>
+            <select class="custom-select" id="bookChannel" style="width:100%;">
+              <option value="Afrimax AI Assistant">Afrimax AI Assistant</option>
+              <option value="Web Portal Direct">Web Portal Direct</option>
+              <option value="Curator Custom Itinerary">Curator Custom Itinerary</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary close-modal" onclick="window.closeAllModals(event)">Cancel</button>
+          <button type="button" id="saveBookingBtn" onclick="window.handleBookingFormSave(event)" class="btn-primary" style="cursor:pointer;"><i class="fas fa-check"></i> Record Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Admin Controller Script -->
+  <script type="module" src="admin-dashboard.js"></script>
+</body>
+</html>
